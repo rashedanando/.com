@@ -24,9 +24,16 @@
             --accent-gradient: linear-gradient(135deg, #e2b842 0%, #9e7e2a 100%);
         } 
 
+        body.light-mode {
+            --bg: #f1f5f9;
+            --card: rgba(255, 255, 255, 0.8);
+            --text: #0f172a;
+            --sub-text: #475569;
+        } 
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        ::-webkit-scrollbar { width: 0px; } /* Custom Scrollbar Hidden for Football Tracker */
+        html { scroll-behavior: auto; }
+        ::-webkit-scrollbar { width: 0px; } 
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
@@ -34,9 +41,36 @@
             color: var(--text);
             line-height: 1.7;
             overflow-x: hidden;
+            transition: background 0.4s ease, color 0.4s ease;
         } 
 
-        /* --- FOOTBALL SCROLL TRACKER (FAHIM STYLE) --- */
+        .theme-toggle-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-left: 20px;
+        }
+        .theme-switch {
+            position: relative;
+            display: inline-block;
+            width: 45px;
+            height: 22px;
+        }
+        .theme-switch input { opacity: 0; width: 0; height: 0; }
+        .slider {
+            position: absolute; cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #334155;
+            transition: .4s; border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute; content: "";
+            height: 16px; width: 16px; left: 3px; bottom: 3px;
+            background-color: var(--gold); transition: .4s; border-radius: 50%;
+        }
+        input:checked + .slider { background-color: var(--gold); }
+        input:checked + .slider:before { transform: translateX(23px); background-color: white; } 
+
         .scroll-control-container {
             position: fixed;
             right: 40px;
@@ -48,7 +82,6 @@
             align-items: center;
             justify-content: space-between;
             z-index: 9999;
-            pointer-events: none;
         }
         .scroll-track {
             position: absolute;
@@ -63,48 +96,68 @@
             font-size: 45px;
             width: 60px; height: 60px;
             display: flex; align-items: center; justify-content: center;
-            left: 50%; transform: translate(-50%, -50%);
-            pointer-events: auto; cursor: pointer;
+            left: 50%; top: 0;
+            transform: translate(-50%, -50%);
+            pointer-events: auto; 
+            cursor: grab;
             filter: drop-shadow(0 0 15px var(--gold-glow));
             will-change: top, transform;
             user-select: none;
+            touch-action: none;
         }
+        #moving-football:active { cursor: grabbing; scale: 1.1; }
+        
         .scroll-arrow-btn {
             background: none; border: none; color: var(--gold);
             font-size: 22px; cursor: pointer; pointer-events: auto;
             opacity: 0.5; transition: 0.3s;
+            z-index: 11;
         }
-        .scroll-arrow-btn:hover { opacity: 1; transform: scale(1.2); }
+        .scroll-arrow-btn:hover { opacity: 1; transform: scale(1.2); } 
 
-        /* --- NAVIGATION --- */
         nav {
             position: fixed; top: 0; width: 100%; padding: 20px 50px;
             display: flex; justify-content: space-between; align-items: center;
-            background: rgba(5, 8, 16, 0.85); backdrop-filter: blur(15px);
+            background: var(--bg); backdrop-filter: blur(15px);
             z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.05);
+            opacity: 0.95;
         }
         .logo { font-family: 'Playfair Display'; font-weight: 900; color: var(--gold); font-size: 1.5rem; letter-spacing: 2px; }
+        .nav-links { display: flex; align-items: center; }
         .nav-links a { color: var(--text); text-decoration: none; margin-left: 30px; font-size: 0.9rem; font-weight: 600; transition: 0.3s; }
         .nav-links a:hover { color: var(--gold); text-shadow: 0 0 10px var(--gold-glow); } 
 
-        /* --- HERO SECTION --- */
         header {
             min-height: 100vh; display: flex; align-items: center; justify-content: center;
-            padding: 120px 20px; background: radial-gradient(circle at 50% 50%, #111827 0%, #050810 100%);
+            padding: 120px 20px; background: radial-gradient(circle at 50% 50%, var(--bg) 0%, #000 100%);
             position: relative;
         } 
         .hero-container { display: flex; align-items: center; max-width: 1200px; gap: 80px; flex-wrap: wrap; justify-content: center; } 
+        
+        .profile-wrapper { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        
         .main-img-container {
             position: relative; width: 380px; height: 480px; border-radius: 30px;
             overflow: hidden; border: 1px solid rgba(226, 184, 66, 0.3);
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            display: flex; justify-content: center; align-items: center;
         } 
-        .profile-main img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease; } 
+        .profile-main { width: 100%; height: 100%; }
+        .profile-main img { 
+            width: 100%; height: 100%; 
+            object-fit: cover; 
+            object-position: center;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease; 
+        } 
         .main-img-container:hover img { transform: scale(1.08); } 
 
-        .thumb-nav { display: flex; gap: 12px; margin-top: 20px; justify-content: center; }
+        .thumb-nav { 
+            display: flex; gap: 12px; margin-top: 20px; 
+            justify-content: center; flex-wrap: wrap;
+            max-width: 380px;
+        }
         .thumb-nav img {
-            width: 55px; height: 55px; border-radius: 12px;
+            width: 50px; height: 50px; border-radius: 12px;
             cursor: pointer; object-fit: cover; border: 2px solid transparent;
             transition: 0.3s; opacity: 0.4;
         }
@@ -114,7 +167,20 @@
         h1 { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 6vw, 5rem); line-height: 1.1; margin-bottom: 20px; }
         .hero-sub { background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.1rem; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px; } 
 
-        /* --- SECTIONS & CARDS --- */
+        .role-highlight {
+            background: linear-gradient(90deg, rgba(226, 184, 66, 0.1) 0%, rgba(226, 184, 66, 0) 100%);
+            border-left: 4px solid var(--gold);
+            padding: 15px 25px;
+            border-radius: 0 15px 15px 0;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            transition: 0.4s;
+        }
+        .role-highlight:hover {
+            box-shadow: 0 5px 25px var(--gold-glow);
+            transform: translateX(10px);
+        } 
+
         section { padding: 100px 20px; max-width: 1200px; margin: auto; }
         .section-title { font-family: 'Playfair Display', serif; font-size: 3rem; margin-bottom: 40px; }
         .section-title span { color: var(--gold); } 
@@ -142,24 +208,26 @@
         #scroll-progress { position: fixed; top: 0; left: 0; height: 4px; background: var(--accent-gradient); z-index: 1001; width: 0%; } 
 
         @media(max-width: 900px) {
+            nav { padding: 20px 20px; }
             .hero-container { text-align: center; }
-            .nav-links { display: none; }
+            .nav-links a { display: none; } 
+            .theme-toggle-container { margin-left: auto; display: flex; } 
             .btn-group, .social-big { justify-content: center; }
             .main-img-container { width: 300px; height: 380px; }
             .scroll-control-container { right: 10px; height: 60%; }
         }
     </style>
 </head>
-<body>
+<body> 
 
 <div id="scroll-progress"></div> 
 
 <div class="scroll-control-container">
-    <button class="scroll-arrow-btn" onclick="window.scrollTo(0,0)"><i class="fas fa-chevron-up"></i></button>
+    <button class="scroll-arrow-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})"><i class="fas fa-chevron-up"></i></button>
     <div class="scroll-track"></div>
     <div id="moving-football">⚽</div>
-    <button class="scroll-arrow-btn" onclick="window.scrollTo(0, document.body.scrollHeight)"><i class="fas fa-chevron-down"></i></button>
-</div>
+    <button class="scroll-arrow-btn" onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})"><i class="fas fa-chevron-down"></i></button>
+</div> 
 
 <nav>
     <div class="logo">RA.</div>
@@ -169,6 +237,14 @@
         <a href="#experience">Experience</a>
         <a href="#skills">Skills</a>
         <a href="#contact">Contact</a>
+        
+        <div class="theme-toggle-container">
+            <i class="fas fa-moon" id="theme-icon"></i>
+            <label class="theme-switch">
+                <input type="checkbox" id="theme-toggle">
+                <span class="slider"></span>
+            </label>
+        </div>
     </div>
 </nav> 
 
@@ -177,28 +253,35 @@
         <div class="profile-wrapper" data-aos="fade-right">
             <div class="main-img-container">
                 <div class="profile-main" style="height: 100%;">
-                    <img id="mainImg" src="https://i.postimg.cc/wx4RCGbZ/IMG-20260108-WA0000.jpg" alt="Md. Rashedul Alam">
+                    <img id="mainImg" src="https://i.postimg.cc/fTxd6CWs/IMG-20260116-WA0005.jpg" alt="Md. Rashedul Alam">
                 </div>
             </div>
             <div class="thumb-nav" id="thumbBar">
-                <img src="https://i.postimg.cc/wx4RCGbZ/IMG-20260108-WA0000.jpg" class="active" onclick="changeImg(0)">
-                <img src="https://i.postimg.cc/YC9Dx9sC/FB-IMG-1767859421742.jpg" onclick="changeImg(1)">
-                <img src="https://i.postimg.cc/k4rj9yXG/FB-IMG-1767859413235.jpg" onclick="changeImg(2)">
-                <img src="https://i.postimg.cc/Gh3Xctrc/FB-IMG-1767859930801.jpg" onclick="changeImg(3)">
-                <img src="https://i.postimg.cc/qRXGrV5c/FB-IMG-1767875156300.jpg" onclick="changeImg(4)">
-            </div>
+                <img src="https://i.postimg.cc/fTxd6CWs/IMG-20260116-WA0005.jpg" class="active" onclick="changeImg(0)">
+                <img src="https://i.postimg.cc/J0jyC7Lf/IMG-20260116-WA0007.jpg" onclick="changeImg(1)">
+                <img src="https://i.postimg.cc/sf51X2kn/IMG-20260116-WA0009.jpg" onclick="changeImg(2)">
+                <img src="https://i.postimg.cc/9f4QjXPP/IMG-20260116-WA0011.jpg" onclick="changeImg(3)">
+                <img src="https://i.postimg.cc/Pr2Xpv26/IMG-20260116-WA0014.jpg" onclick="changeImg(4)">
+                </div>
         </div> 
 
         <div class="hero-content" data-aos="fade-left">
             <p class="hero-sub">Business Strategist | Content Creator</p>
             <h1>Md. Rashedul <span style="color:var(--gold)">Alam</span></h1>
-            <p style="font-size: 1.2rem; color: var(--sub-text); margin-bottom: 25px;">
-                Management Information Secretary at Skill Up Club, DIU. Focused on bridging traditional business management with the digital era.
-            </p>
+            
+            <div class="role-highlight">
+                <p style="font-size: 1.15rem; color: var(--text); font-weight: 600;">
+                    Management Information Secretary at <span style="color: var(--gold);">Skill Up Club, DIU.</span>
+                    <span style="display: block; font-size: 1rem; color: var(--sub-text); margin-top: 5px; font-weight: 400;">
+                        Focused on bridging traditional business management with the digital era.
+                    </span>
+                </p>
+            </div>
             
             <div class="social-big">
                 <a href="https://www.linkedin.com/in/rashedanando" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
                 <a href="https://www.facebook.com/share/1DWx2PXYBm/" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
+                <a href="https://x.com/AnandoRashed" target="_blank" title="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
                 <a href="https://www.instagram.com/rashed.anando" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
                 <a href="https://youtube.com/@rashedanando" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
             </div> 
@@ -236,9 +319,9 @@
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
         <div class="card">
             <span style="color: var(--gold); font-weight: 800; font-size: 0.8rem;">UNIVERSITY</span>
-            <h3 style="margin: 10px 0;">BBA in Management</h3>
+            <h3 style="margin: 10px 0;">BBA in Marketing</h3>
             <p>Daffodil International University</p>
-            <p style="color: var(--gold); font-weight: 900; font-size: 1.8rem; margin-top: 10px;">CGPA: 3.50 / 4.00</p>
+            <p style="color: var(--gold); font-weight: 900; font-size: 1.8rem; margin-top: 10px;">Current CGPA: 3.50</p>
         </div>
         <div class="card">
             <span style="color: var(--gold); font-weight: 800; font-size: 0.8rem;">COLLEGE (2022)</span>
@@ -310,31 +393,76 @@
 <script>
     AOS.init({ duration: 1000, once: true, offset: 100 }); 
 
-    // Football Scroll & Progress Logic
     const football = document.getElementById('moving-football');
-    const scrollProgress = document.getElementById("scroll-progress");
+    const scrollProgress = document.getElementById("scroll-progress"); 
+    const track = document.querySelector('.scroll-track');
+    let isDragging = false; 
 
-    window.onscroll = function() {
-        let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    function updateScrollUI() {
+        let winScroll = window.pageYOffset || document.documentElement.scrollTop;
         let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
         let scrolled = (winScroll / height) * 100;
         
-        // Update top progress bar
         scrollProgress.style.width = scrolled + "%";
+        if (!isDragging) {
+            football.style.top = scrolled + "%";
+            football.style.transform = `translate(-50%, -50%) rotate(${winScroll * 0.8}deg)`;
+        }
+    } 
 
-        // Update Football position
-        football.style.top = scrolled + "%";
-        // Rotate football on scroll
-        football.style.transform = `translate(-50%, -50%) rotate(${winScroll * 0.8}deg)`;
-    }; 
+    window.onscroll = updateScrollUI; 
 
-    // Image Slider Logic
+    function handleDrag(e) {
+        if (!isDragging) return;
+        const trackRect = track.getBoundingClientRect();
+        let clientY = e.clientY || (e.touches ? e.touches[0].clientY : 0);
+        let offset = clientY - trackRect.top;
+        let percentage = Math.max(0, Math.min(100, (offset / trackRect.height) * 100));
+        
+        football.style.top = percentage + "%";
+        const scrollTarget = (percentage / 100) * (document.documentElement.scrollHeight - window.innerHeight);
+        window.scrollTo(0, scrollTarget);
+    } 
+
+    football.addEventListener('mousedown', (e) => { isDragging = true; e.preventDefault(); });
+    window.addEventListener('mousemove', handleDrag);
+    window.addEventListener('mouseup', () => { isDragging = false; }); 
+
+    football.addEventListener('touchstart', () => { isDragging = true; }, {passive: false});
+    window.addEventListener('touchmove', (e) => { 
+        if(isDragging) { e.preventDefault(); handleDrag(e); } 
+    }, {passive: false});
+    window.addEventListener('touchend', () => { isDragging = false; }); 
+
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon'); 
+
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+        document.body.classList.add('light-mode');
+        themeToggle.checked = true;
+        themeIcon.classList.replace('fa-moon', 'fa-sun');
+    } 
+
+    themeToggle.addEventListener('change', () => {
+        if (themeToggle.checked) {
+            document.body.classList.add('light-mode');
+            themeIcon.classList.replace('fa-moon', 'fa-sun');
+            localStorage.setItem('theme', 'light');
+        } else {
+            document.body.classList.remove('light-mode');
+            themeIcon.classList.replace('fa-sun', 'fa-moon');
+            localStorage.setItem('theme', 'dark');
+        }
+    }); 
+
+    // Updated Image Array (Removed 6th image)
     const images = [
-        "https://i.postimg.cc/wx4RCGbZ/IMG-20260108-WA0000.jpg",
-        "https://i.postimg.cc/YC9Dx9sC/FB-IMG-1767859421742.jpg",
-        "https://i.postimg.cc/k4rj9yXG/FB-IMG-1767859413235.jpg",
-        "https://i.postimg.cc/Gh3Xctrc/FB-IMG-1767859930801.jpg",
-        "https://i.postimg.cc/qRXGrV5c/FB-IMG-1767875156300.jpg"
+        "https://i.postimg.cc/fTxd6CWs/IMG-20260116-WA0005.jpg",
+        "https://i.postimg.cc/J0jyC7Lf/IMG-20260116-WA0007.jpg",
+        "https://i.postimg.cc/sf51X2kn/IMG-20260116-WA0009.jpg",
+        "https://i.postimg.cc/9f4QjXPP/IMG-20260116-WA0011.jpg",
+        "https://i.postimg.cc/Pr2Xpv26/IMG-20260116-WA0014.jpg"
     ]; 
 
     let currentIndex = 0;
@@ -344,11 +472,9 @@
     function changeImg(index) {
         currentIndex = index;
         mainImg.style.opacity = '0';
-        mainImg.style.transform = 'scale(0.95)';
         setTimeout(() => {
             mainImg.src = images[currentIndex];
             mainImg.style.opacity = '1';
-            mainImg.style.transform = 'scale(1)';
         }, 300);
         thumbs.forEach(t => t.classList.remove('active'));
         thumbs[currentIndex].classList.add('active');
@@ -359,6 +485,5 @@
         changeImg(currentIndex);
     }, 6000);
 </script> 
-
 </body>
 </html>
