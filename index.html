@@ -11,247 +11,301 @@
     <link rel="shortcut icon" href="https://i.postimg.cc/mkRYqjXB/Compress-JPEG-Online-img-500x500.jpg">
     
     <meta name="description" content="Md. Rashedul Alam is a Teaching Assistant and Business Strategist. Management Information Secretary at Skill Up Club, DIU.">
-    <meta name="keywords" content="Md. Rashedul Alam, Rashed Anando, Business Strategist, Teaching Assistant, DIU, Skill Up Club">
-    <meta name="author" content="Md. Rashedul Alam">
     
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"> 
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"> 
 
     <style>
-        :root {
-            --gold: #e2b842;
-            --cyan: #00f2ff;
-            --gold-glow: rgba(226, 184, 66, 0.3);
-            --bg: #050810;
-            --card: rgba(15, 23, 42, 0.6);
-            --text: #f8fafc;
-            --sub-text: #94a3b8;
-            --accent-gradient: linear-gradient(135deg, #e2b842 0%, #9e7e2a 100%);
-        } 
+        /* ====== LUCID FLUID UI MATRIX ====== */
+        :root, body[data-theme="night"] {
+            --bg-base: #02040a;
+            --text-main: #f8fafc;
+            --text-sub: #cbd5e1;
+            --text-muted: #64748b;
+            
+            /* Fluid Blobs */
+            --blob-1: rgba(56, 189, 248, 0.4);
+            --blob-2: rgba(99, 102, 241, 0.35);
+            --blob-3: rgba(139, 92, 246, 0.3);
+            
+            /* Deep Glassmorphism */
+            --glass-fill: rgba(255, 255, 255, 0.08);
+            --glass-fill-hover: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --glass-glow: 0 10px 40px -10px rgba(56, 189, 248, 0.4);
+            
+            --accent-solid: #38bdf8;
+            --accent-gradient: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+        }
 
-        body.light-mode {
-            --bg: #f1f5f9;
-            --card: rgba(255, 255, 255, 0.8);
-            --text: #0f172a;
-            --sub-text: #475569;
-        } 
+        body[data-theme="dusk"] {
+            --bg-base: #100b1a;
+            --text-main: #fdfaf6;
+            --text-sub: #d8b4e2;
+            --text-muted: #8b6d9c;
+            
+            --blob-1: rgba(217, 70, 239, 0.35);
+            --blob-2: rgba(139, 92, 246, 0.35);
+            --blob-3: rgba(244, 63, 94, 0.3);
+            
+            --glass-fill: rgba(255, 255, 255, 0.09);
+            --glass-fill-hover: rgba(255, 255, 255, 0.16);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --glass-glow: 0 10px 40px -10px rgba(217, 70, 239, 0.4);
+            
+            --accent-solid: #d946ef;
+            --accent-gradient: linear-gradient(135deg, #d946ef 0%, #8b5cf6 100%);
+        }
+
+        body[data-theme="day"] {
+            --bg-base: #eef2f6;
+            --text-main: #0f172a;
+            --text-sub: #334155;
+            --text-muted: #64748b;
+            
+            --blob-1: rgba(56, 189, 248, 0.5);
+            --blob-2: rgba(250, 204, 21, 0.4);
+            --blob-3: rgba(244, 114, 182, 0.4);
+            
+            --glass-fill: rgba(255, 255, 255, 0.65);
+            --glass-fill-hover: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.4);
+            --glass-glow: 0 10px 40px -10px rgba(56, 189, 248, 0.3);
+            
+            --accent-solid: #0284c7;
+            --accent-gradient: linear-gradient(135deg, #0284c7 0%, #6366f1 100%);
+        }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: auto; }
+        html { scroll-behavior: smooth; }
         ::-webkit-scrollbar { width: 0px; } 
 
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.7;
+            font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            line-height: 1.6;
             overflow-x: hidden;
-            transition: background 0.4s ease, color 0.4s ease;
-        } 
+            transition: background 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
 
-        .theme-toggle-container {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-left: 20px;
+        /* ====== AMBIENT MESH & BLOBS ====== */
+        .ambient-mesh {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -2; pointer-events: none; overflow: hidden;
         }
-        .theme-switch {
-            position: relative;
-            display: inline-block;
-            width: 45px;
-            height: 22px;
+        .blob {
+            position: absolute; border-radius: 50%; filter: blur(80px);
+            opacity: 0.8; animation: float 20s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
+            transition: background 1s ease;
         }
-        .theme-switch input { opacity: 0; width: 0; height: 0; }
-        .slider {
-            position: absolute; cursor: pointer;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-color: #334155;
-            transition: .4s; border-radius: 34px;
-        }
-        .slider:before {
-            position: absolute; content: "";
-            height: 16px; width: 16px; left: 3px; bottom: 3px;
-            background-color: var(--gold); transition: .4s; border-radius: 50%;
-        }
-        input:checked + .slider { background-color: var(--gold); }
-        input:checked + .slider:before { transform: translateX(23px); background-color: white; } 
+        .blob-1 { width: 50vw; height: 50vw; background: var(--blob-1); top: -10%; left: -10%; animation-delay: 0s; }
+        .blob-2 { width: 45vw; height: 45vw; background: var(--blob-2); bottom: -10%; right: -5%; animation-delay: -5s; animation-direction: alternate-reverse; }
+        .blob-3 { width: 40vw; height: 40vw; background: var(--blob-3); top: 30%; left: 30%; animation-delay: -10s; }
 
-        .scroll-control-container {
-            position: fixed;
-            right: 40px;
-            top: 15%;
-            height: 70%;
-            width: 60px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
-            z-index: 9999;
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            50% { transform: translate(5vw, 10vh) scale(1.1) rotate(45deg); }
+            100% { transform: translate(-5vw, -5vh) scale(0.9) rotate(-20deg); }
         }
-        .scroll-track {
-            position: absolute;
-            width: 2px;
-            height: 100%;
-            background: rgba(226, 184, 66, 0.15);
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        #moving-football {
-            position: absolute;
-            font-size: 45px;
-            width: 60px; height: 60px;
-            display: flex; align-items: center; justify-content: center;
-            left: 50%; top: 0;
-            transform: translate(-50%, -50%);
-            pointer-events: auto; 
-            cursor: grab;
-            filter: drop-shadow(0 0 15px var(--gold-glow));
-            will-change: top, transform;
-            user-select: none;
-            touch-action: none;
-        }
-        #moving-football:active { cursor: grabbing; scale: 1.1; }
-        
-        .scroll-arrow-btn {
-            background: none; border: none; color: var(--gold);
-            font-size: 22px; cursor: pointer; pointer-events: auto;
-            opacity: 0.5; transition: 0.3s;
-            z-index: 11;
-        }
-        .scroll-arrow-btn:hover { opacity: 1; transform: scale(1.2); } 
 
-        nav {
-            position: fixed; top: 0; width: 100%; padding: 20px 50px;
-            display: flex; justify-content: space-between; align-items: center;
-            background: var(--bg); backdrop-filter: blur(15px);
-            z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.05);
-            opacity: 0.95;
+        .noise-layer {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3e%3Cfilter id='noise'%3e%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3e%3C/filter%3e%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.015'/%3e%3C/svg%3e");
+            pointer-events: none; z-index: -1; opacity: 0.8;
         }
-        .logo { font-family: 'Playfair Display'; font-weight: 900; color: var(--gold); font-size: 1.5rem; letter-spacing: 2px; }
-        .nav-links { display: flex; align-items: center; }
-        .nav-links a { color: var(--text); text-decoration: none; margin-left: 30px; font-size: 0.9rem; font-weight: 600; transition: 0.3s; }
-        .nav-links a:hover { color: var(--gold); text-shadow: 0 0 10px var(--gold-glow); } 
 
-        header {
-            min-height: 100vh; display: flex; align-items: center; justify-content: center;
-            padding: 120px 20px; background: radial-gradient(circle at 50% 50%, var(--bg) 0%, #000 100%);
-            position: relative;
-        } 
-        .hero-container { display: flex; align-items: center; max-width: 1200px; gap: 80px; flex-wrap: wrap; justify-content: center; } 
-        
-        .profile-wrapper { display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        
-        .main-img-container {
-            position: relative; width: 380px; height: 480px; border-radius: 30px;
-            overflow: hidden; border: 1px solid rgba(226, 184, 66, 0.3);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            display: flex; justify-content: center; align-items: center;
-        } 
-        .profile-main { width: 100%; height: 100%; }
-        .profile-main img { 
-            width: 100%; height: 100%; 
-            object-fit: cover; 
-            object-position: center;
-            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease; 
-        } 
-        .main-img-container:hover img { transform: scale(1.08); } 
-
-        .thumb-nav { 
-            display: flex; gap: 12px; margin-top: 20px; 
-            justify-content: center; flex-wrap: wrap;
-            max-width: 380px;
-        }
-        .thumb-nav img {
-            width: 50px; height: 50px; border-radius: 12px;
-            cursor: pointer; object-fit: cover; border: 2px solid transparent;
-            transition: 0.3s; opacity: 0.4;
-        }
-        .thumb-nav img.active { opacity: 1; border-color: var(--gold); transform: translateY(-5px); } 
-
-        .hero-content { max-width: 600px; }
-        h1 { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 6vw, 5rem); line-height: 1.1; margin-bottom: 20px; }
-        .hero-sub { background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.1rem; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px; } 
-
-        /* Glowing & Eye-catching Box */
-        .role-highlight {
-            background: linear-gradient(90deg, rgba(226, 184, 66, 0.15) 0%, rgba(5, 8, 16, 0.8) 100%);
-            border: 1px solid rgba(226, 184, 66, 0.5);
-            border-left: 6px solid var(--gold);
-            padding: 20px 25px;
-            border-radius: 10px;
-            margin-bottom: 25px;
+        /* ====== DEEP GLASSMORPHISM CORE ====== */
+        .glass-panel {
+            background: var(--glass-fill);
+            backdrop-filter: blur(32px) saturate(180%);
+            -webkit-backdrop-filter: blur(32px) saturate(180%);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
             position: relative;
             overflow: hidden;
-            backdrop-filter: blur(5px);
-            animation: boxGlow 3s infinite alternate;
-            box-shadow: 0 0 15px rgba(226, 184, 66, 0.2);
+        }
+
+        .glass-panel:hover {
+            background: var(--glass-fill-hover);
+            transform: translateY(-6px) scale(1.01);
+            box-shadow: var(--glass-glow), 0 30px 60px rgba(0,0,0,0.15);
+        }
+
+        .glass-panel::after {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 24px; border: 1px solid rgba(255,255,255,0.1);
+            pointer-events: none; z-index: 10;
+        }
+
+        /* ====== NAVIGATION ====== */
+        .nav-container { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); width: calc(100% - 40px); max-width: 1300px; z-index: 9999; }
+        nav.glass-panel { border-radius: 20px; padding: 12px 28px; display: flex; justify-content: space-between; align-items: center; }
+        nav.glass-panel:hover { transform: translateY(0) scale(1); }
+        
+        .nav-logo { font-size: 1.3rem; font-weight: 800; letter-spacing: -0.05em; color: var(--text-main); }
+        .nav-links { display: flex; gap: 35px; align-items: center; }
+        .nav-links a { color: var(--text-sub); text-decoration: none; font-size: 0.85rem; font-weight: 600; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .nav-links a:hover { color: var(--accent-solid); text-shadow: 0 0 10px var(--glass-glow); transform: translateY(-2px); }
+        
+        .nav-chat-btn { background: var(--text-main); color: var(--bg-base); padding: 10px 22px; border-radius: 14px; font-size: 0.85rem; font-weight: 700; border: none; cursor: pointer; text-decoration: none; transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .nav-chat-btn:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 10px 20px rgba(255,255,255,0.2); }
+        body[data-theme="day"] .nav-chat-btn { color: #fff; background: var(--accent-solid); }
+
+        /* ====== HERO SECTION ====== */
+        .hero-section {
+            position: relative; min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 24px 80px 24px; overflow: hidden;
         }
         
-        .role-highlight::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 50%; height: 100%;
-            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.15), transparent);
-            transform: skewX(-25deg);
-            animation: shineEffect 4s infinite;
+        .hero-video-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; pointer-events: none; opacity: 1; }
+        
+        .hero-video-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(180deg, transparent 0%, var(--bg-base) 100%);
+            z-index: 1; pointer-events: none;
+        }
+        
+        .hero-content-wrapper { position: relative; z-index: 2; width: 100%; max-width: 1400px; margin: 0 auto; }
+        .hero-grid { display: flex; flex-direction: column; gap: 40px; }
+        .hero-heading { font-size: clamp(2.8rem, 7vw, 5.5rem); font-weight: 600; line-height: 1.05; margin-bottom: 20px; letter-spacing: -0.04em; color: var(--text-main); text-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        .hero-sub { color: var(--text-sub); font-size: clamp(1.1rem, 2vw, 1.3rem); max-width: 600px; margin-bottom: 30px; font-weight: 400; }
+        
+        .hero-buttons { display: flex; gap: 20px; flex-wrap: wrap; }
+        .btn-vex-solid { background: var(--accent-gradient); color: #fff; padding: 16px 40px; border-radius: 16px; font-weight: 600; text-decoration: none; transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); border: 1px solid rgba(255,255,255,0.3); }
+        .btn-vex-solid:hover { transform: translateY(-4px) scale(1.05); box-shadow: var(--glass-glow); }
+        
+        .btn-vex-glass { padding: 16px 40px; font-weight: 500; color: var(--text-main); text-decoration: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
+        .hero-right-tag { display: inline-block; padding: 20px 40px; color: var(--text-main); font-size: clamp(1.125rem, 2vw, 1.5rem); font-weight: 400; letter-spacing: 0.5px; }
+
+        @media(min-width: 1024px) {
+            .hero-grid { flex-direction: row; align-items: flex-end; justify-content: space-between; }
+            .hero-grid > div:last-child { text-align: right; }
+        }
+        
+        .char-span { display: inline-block; opacity: 0; transform: translateY(30px); transition: all 800ms cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .fade-element { opacity: 0; transform: translateY(20px); transition: all 1200ms cubic-bezier(0.34, 1.56, 0.64, 1); }
+
+        /* ====== BENTO GRID SYSTEM ====== */
+        section { padding: 120px 24px; max-width: 1300px; margin: auto; position: relative; z-index: 2; }
+        
+        .section-header { text-align: left; margin-bottom: 50px; max-width: 600px; }
+        .section-title { font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 700; letter-spacing: -0.04em; color: var(--text-main); }
+        .section-title span { background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 500; }
+        .section-subtitle { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 4px; color: var(--accent-solid); margin-bottom: 12px; font-weight: 700; }
+
+        .bento-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        .bento-card { padding: 40px; display: flex; flex-direction: column; justify-content: space-between; }
+        .bento-large { grid-column: span 2; grid-row: span 2; }
+        .bento-medium { grid-column: span 2; }
+        .bento-small { grid-column: span 1; }
+
+        .pulse-dot { width: 10px; height: 10px; background: #34d399; border-radius: 50%; display: inline-block; margin-right: 10px; box-shadow: 0 0 15px #34d399; animation: pulse 2s infinite cubic-bezier(0.4, 0, 0.2, 1); }
+        @keyframes pulse { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.2); } 100% { opacity: 1; transform: scale(1); } }
+
+        /* Modern Skills Pills */
+        .skills-grid { display: flex; flex-wrap: wrap; gap: 12px; }
+        .skill-pill {
+            padding: 12px 24px; border-radius: 16px; font-size: 0.9rem; font-weight: 500;
+            color: var(--text-main); background: var(--glass-fill); border: 1px solid var(--glass-border);
+            backdrop-filter: blur(24px) saturate(180%);
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); cursor: default;
+        }
+        .skill-pill:hover {
+            color: #ffffff; background: var(--accent-gradient);
+            border-color: transparent; transform: translateY(-5px) scale(1.05);
+            box-shadow: var(--glass-glow);
         }
 
-        @keyframes boxGlow {
-            0% { box-shadow: 0 0 10px rgba(226, 184, 66, 0.1); border-color: rgba(226, 184, 66, 0.3); }
-            100% { box-shadow: 0 0 30px rgba(226, 184, 66, 0.5), 0 0 10px var(--gold); border-color: var(--gold); }
+        /* Clean Mini-Timelines */
+        .timeline-item { position: relative; padding-left: 28px; border-left: 2px solid var(--glass-border); margin-bottom: 30px; }
+        .timeline-item::before { content: ''; position: absolute; left: -7px; top: 6px; width: 12px; height: 12px; border-radius: 50%; background: var(--accent-gradient); box-shadow: 0 0 10px var(--accent-solid); }
+
+        /* Fluid Carousel */
+        .profile-wrapper { display: flex; flex-direction: column; align-items: center; }
+        .avatar-frame { position: relative; width: 100%; height: 380px; border-radius: 20px; overflow: hidden; border: 1px solid var(--glass-border); }
+        .avatar-frame img { width: 100%; height: 100%; object-fit: cover; transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        
+        .carousel-nav { display: flex; gap: 10px; margin-top: 20px; width: 100%; justify-content: space-between; }
+        .carousel-nav img {
+            width: calc(20% - 8px); height: 55px; border-radius: 12px; cursor: pointer; object-fit: cover;
+            border: 1px solid var(--glass-border); opacity: 0.5; filter: grayscale(50%);
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .carousel-nav img.active, .carousel-nav img:hover { opacity: 1; filter: grayscale(0%); border-color: var(--accent-solid); transform: translateY(-4px) scale(1.05); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+
+        /* ====== THEME TOGGLE ====== */
+        .theme-wheel-container {
+            position: relative; background: var(--glass-fill); border: 1px solid var(--glass-border); 
+            padding: 4px; border-radius: 16px; display: flex; gap: 4px; backdrop-filter: blur(20px);
+        }
+        
+        .theme-btn {
+            background: none; border: none; width: 34px; height: 34px; border-radius: 12px;
+            color: var(--text-muted); cursor: pointer; display: flex; align-items: center; justify-content: center; 
+            font-size: 0.9rem; transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); z-index: 2;
+        }
+        .theme-btn:hover { color: var(--text-main); transform: scale(1.1); }
+        .theme-btn.active {
+            color: #fff; background: var(--accent-gradient);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.2);
         }
 
-        @keyframes shineEffect {
-            0% { left: -100%; }
-            20% { left: 200%; }
-            100% { left: 200%; }
+        /* ====== FLUID TRACKING CONTROLS ====== */
+        .scroll-control-container { position: fixed; right: 30px; top: 20%; height: 60%; width: 40px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; z-index: 1000; }
+        .scroll-track { position: absolute; width: 2px; height: 100%; background: var(--glass-border); left: 50%; transform: translateX(-50%); border-radius: 4px; }
+        
+        #moving-football { 
+            position: absolute; font-size: 26px; width: 44px; height: 44px; 
+            display: flex; align-items: center; justify-content: center; left: 50%; top: 0; 
+            transform: translate(-50%, -50%); cursor: grab; filter: drop-shadow(0 0 15px var(--accent-solid)); 
+            user-select: none; touch-action: none; z-index: 12; 
         }
+        #moving-football:active { cursor: grabbing; transform: translate(-50%, -50%) scale(1.15); }
+        
+        .scroll-arrow-btn { background: var(--glass-fill); border: 1px solid var(--glass-border); color: var(--text-muted); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; backdrop-filter: blur(10px); transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); z-index: 11; }
+        .scroll-arrow-btn:hover { color: var(--text-main); background: var(--accent-gradient); transform: scale(1.15); box-shadow: var(--glass-glow); border-color: transparent; } 
+        
+        #scroll-progress { position: fixed; top: 0; left: 0; height: 4px; background: var(--accent-gradient); z-index: 9999; width: 0%; transition: width 0.2s cubic-bezier(0.34, 1.56, 0.64, 1); box-shadow: 0 0 10px var(--accent-solid); } 
 
-        section { padding: 100px 20px; max-width: 1200px; margin: auto; }
-        .section-title { font-family: 'Playfair Display', serif; font-size: 3rem; margin-bottom: 40px; }
-        .section-title span { color: var(--gold); } 
-        .card { background: var(--card); backdrop-filter: blur(12px); padding: 35px; border-radius: 24px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.4s ease; height: 100%; }
-        .card:hover { border-color: var(--gold); transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.3); } 
-
-        .edu-grid .card {
-            transform: scale(0.95);
-        } 
-
-        .skills-container { display: flex; flex-wrap: wrap; gap: 15px; }
-        .tag { padding: 12px 24px; border-radius: 12px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); font-weight: 600; transition: 0.4s; font-size: 0.85rem; cursor: default; }
-        .tag:hover { background: var(--accent-gradient); color: #000; transform: scale(1.1) rotate(2deg); } 
-
-        ul { list-style: none; }
-        li { margin-bottom: 12px; position: relative; padding-left: 25px; color: var(--sub-text); }
-        li::before { content: "\f061"; font-family: "Font Awesome 5 Free"; font-weight: 900; position: absolute; left: 0; color: var(--gold); font-size: 0.8rem; } 
-
-        .btn-group { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 35px; }
-        .btn { display: inline-flex; align-items: center; gap: 10px; padding: 16px 38px; border-radius: 50px; font-weight: 800; text-decoration: none; transition: 0.4s; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px; }
-        .btn-primary { background: var(--accent-gradient); color: #000; }
-        .btn-secondary { border: 1.5px solid var(--gold); color: var(--gold); }
-        .btn:hover { transform: translateY(-3px); box-shadow: 0 15px 30px var(--gold-glow); } 
-
-        .social-big { display: flex; gap: 25px; margin-top: 30px; }
-        .social-big a { color: var(--text); font-size: 1.8rem; transition: 0.4s; }
-        .social-big a:hover { color: var(--gold); transform: translateY(-5px) scale(1.2); } 
-
-        #scroll-progress { position: fixed; top: 0; left: 0; height: 4px; background: var(--accent-gradient); z-index: 1001; width: 0%; } 
-
-        @media(max-width: 900px) {
-            nav { padding: 20px 20px; }
-            .hero-container { text-align: center; }
-            .nav-links a { display: none; } 
-            .theme-toggle-container { margin-left: auto; display: flex; } 
-            .btn-group, .social-big { justify-content: center; }
-            .main-img-container { width: 300px; height: 380px; }
-            .scroll-control-container { right: 10px; height: 60%; }
+        /* ====== RESPONSIVE LAYOUT MATRIX ====== */
+        @media(max-width: 992px) {
+            .nav-links { display: none; }
+            .bento-container { grid-template-columns: 1fr; gap: 20px; }
+            .bento-large, .bento-medium, .bento-small { grid-column: span 1; grid-row: span 1; }
+            section { padding: 80px 16px; }
+            
+            .scroll-control-container { right: 12px; top: 25%; height: 50%; width: 32px; }
+            #moving-football { font-size: 22px; width: 32px; height: 32px; }
+        }
+        
+        @media(max-width: 480px) {
+            nav.glass-panel { padding: 12px 16px; }
+            .nav-logo { font-size: 1.2rem; }
+            .theme-btn { width: 30px; height: 30px; font-size: 0.8rem; }
+            .nav-chat-btn { padding: 8px 16px; font-size: 0.8rem; }
+            
+            .scroll-control-container { right: 6px; width: 24px; }
+            #moving-football { font-size: 18px; width: 24px; height: 24px; }
+            .scroll-arrow-btn { width: 24px; height: 24px; font-size: 10px; }
         }
     </style>
 </head>
-<body> 
+<body data-theme="night"> 
 
+<div class="ambient-mesh">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+</div>
+
+<div class="noise-layer"></div>
 <div id="scroll-progress"></div> 
 
 <div class="scroll-control-container">
@@ -261,287 +315,361 @@
     <button class="scroll-arrow-btn" onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})"><i class="fas fa-chevron-down"></i></button>
 </div> 
 
-<nav>
-    <div class="logo">RA.</div>
-    <div class="nav-links">
-        <a href="#about">About</a>
-        <a href="#education">Education</a>
-        <a href="#experience">Experience</a>
-        <a href="#skills">Skills</a>
-        <a href="#contact">Contact</a>
-        
-        <div class="theme-toggle-container">
-            <i class="fas fa-moon" id="theme-icon"></i>
-            <label class="theme-switch">
-                <input type="checkbox" id="theme-toggle">
-                <span class="slider"></span>
-            </label>
+<div class="nav-container">
+    <nav class="glass-panel">
+        <div class="nav-logo">RA.</div>
+        <div class="nav-links">
+            <a href="#about">Dashboard</a>
+            <a href="#qualifications">Credentials</a>
+            <a href="#skills">Expertise</a>
+            <a href="#contact">Inquiries</a>
         </div>
-    </div>
-</nav> 
+        <div style="display: flex; align-items: center; gap: 16px;">
+            <div class="theme-wheel-container">
+                <button class="theme-btn active" id="btn-night" onclick="setTheme('night')" title="Obsidian Night"><i class="fas fa-moon"></i></button>
+                <button class="theme-btn" id="btn-dusk" onclick="setTheme('dusk')" title="Cyber Dusk"><i class="fas fa-star-of-david"></i></button>
+                <button class="theme-btn" id="btn-day" onclick="setTheme('day')" title="Alabaster Day"><i class="fas fa-sun"></i></button>
+            </div>
+            <a href="https://wa.me/8801837569796" target="_blank" class="nav-chat-btn magnetic">Connect</a>
+        </div>
+    </nav>
+</div>
 
-<header>
-    <div class="hero-container">
-        <div class="profile-wrapper" data-aos="fade-right">
-            <div class="main-img-container">
-                <div class="profile-main" style="height: 100%;">
-                    <img id="mainImg" src="https://i.postimg.cc/fTxd6CWs/IMG-20260116-WA0005.jpg" alt="Md. Rashedul Alam">
+<header class="hero-section">
+    <video autoplay loop muted playsinline class="hero-video-bg">
+        <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260403_050628_c4e32401-fab4-4a27-b7a8-6e9291cd5959.mp4" type="video/mp4">
+    </video>
+    <div class="hero-video-overlay"></div>
+
+    <div class="hero-content-wrapper">
+        <div class="hero-grid">
+            <div>
+                <h1 id="animated-heading" class="hero-heading"></h1>
+                <p id="fade-subheading" class="hero-sub fade-element">
+                    We back visionaries and craft ventures that define what comes next.
+                </p>
+                <div id="fade-buttons" class="hero-buttons fade-element">
+                    <a href="https://wa.me/8801837569796" target="_blank" class="btn-vex-solid magnetic">Start a Chat</a>
+                    <a href="#about" class="btn-vex-glass glass-panel magnetic">Explore Now</a>
                 </div>
             </div>
-            <div class="thumb-nav" id="thumbBar">
-                <img src="https://i.postimg.cc/fTxd6CWs/IMG-20260116-WA0005.jpg" class="active" onclick="changeImg(0)">
-                <img src="https://i.postimg.cc/J0jyC7Lf/IMG-20260116-WA0007.jpg" onclick="changeImg(1)">
-                <img src="https://i.postimg.cc/sf51X2kn/IMG-20260116-WA0009.jpg" onclick="changeImg(2)">
-                <img src="https://i.postimg.cc/9f4QjXPP/IMG-20260116-WA0011.jpg" onclick="changeImg(3)">
-                <img src="https://i.postimg.cc/Pr2Xpv26/IMG-20260116-WA0014.jpg" onclick="changeImg(4)">
-                </div>
-        </div> 
-
-        <div class="hero-content" data-aos="fade-left">
-            <p class="hero-sub">Business Strategist | Content Creator</p>
-            <h1 style="color: #ffffff;">Md. Rashedul <span style="color:var(--gold)">Alam</span></h1>
-            
-            <div class="role-highlight">
-                <p style="font-size: 1.3rem; color: #ffffff; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px;">
-                    Teaching Assistant
-                </p>
-                <p style="font-size: 1.15rem; color: var(--text); font-weight: 600;">
-                    Dept. of Marketing | Daffodil International University
-                </p>
-                <div style="margin-top: 10px; border-top: 1px solid rgba(226, 184, 66, 0.2); padding-top: 8px;">
-                    <p style="font-size: 1.05rem; color: #f8fafc; font-weight: 500;">
-                        Management Information Secretary at <span style="color: var(--gold); font-weight: 700;">Skill Up Club, DIU.</span>
-                    </p>
-                </div>
-            </div>
-            
-            <div class="social-big">
-                <a href="https://www.linkedin.com/in/rashedanando" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                <a href="https://www.facebook.com/share/1DWx2PXYBm/" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
-                <a href="https://x.com/AnandoRashed" target="_blank" title="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
-                <a href="https://www.instagram.com/rashed.anando" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="https://youtube.com/@rashedanando" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
-            </div> 
-
-            <div class="btn-group">
-                <a href="https://wa.me/8801837569796" target="_blank" class="btn btn-primary">
-                    <i class="fab fa-whatsapp"></i> WhatsApp Me
-                </a>
-                <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+            <div id="fade-tag" class="fade-element">
+                <div class="hero-right-tag glass-panel">Strategy. Leadership. Execution.</div>
             </div>
         </div>
     </div>
 </header> 
 
 <section id="about" data-aos="fade-up">
-    <h2 class="section-title">Current <span>Role</span></h2>
-    <div style="display: flex; flex-direction: column; gap: 25px;">
-        
-        <div class="card" style="position: relative; overflow: hidden; border: 1px solid rgba(226, 184, 66, 0.4); background: linear-gradient(145deg, rgba(226, 184, 66, 0.05) 0%, rgba(5, 8, 16, 0.8) 100%); padding: 45px;">
-            <div style="position: absolute; top: -60px; right: -60px; width: 180px; height: 180px; background: var(--gold); opacity: 0.15; filter: blur(70px); border-radius: 50%;"></div>
-            
-            <div style="position: relative; z-index: 2;">
-                 <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 20px;">
-                    <div style="flex: 1; min-width: 250px;">
-                        <span style="background: linear-gradient(90deg, var(--gold), #9e7e2a); color: #000; padding: 6px 16px; border-radius: 30px; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(226, 184, 66, 0.3);">
-                            <i class="fas fa-crown" style="margin-right:5px; font-size: 0.8rem;"></i> Primary Role
-                        </span>
-                        <h3 style="background: linear-gradient(to right, #fff, #cbd5e1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 2.8rem; margin-top: 20px; font-weight: 900; line-height: 1.2;">
-                            Teaching <br><span style="color: var(--gold); -webkit-text-fill-color: var(--gold);">Assistant</span>
-                        </h3>
-                        <div style="margin-top: 20px; border-left: 3px solid var(--gold); padding-left: 20px;">
-                            <p style="font-size: 1.2rem; font-weight: 600; color: var(--text); letter-spacing: 0.5px;">Department of Marketing</p>
-                            <p style="color: var(--sub-text); font-size: 1.0rem; margin-top: 5px;">Daffodil International University</p>
-                        </div>
-                    </div>
-                    <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); width: 85px; height: 85px; border-radius: 20px; display: flex; align-items: center; justify-content: center; transform: rotate(3deg);">
-                        <i class="fas fa-chalkboard-user" style="font-size: 35px; color: var(--gold);"></i>
-                    </div>
-                 </div>
+    <div class="section-header">
+        <p class="section-subtitle">Operational Matrix</p>
+        <h2 class="section-title">Executive <span>Overview</span></h2>
+    </div>
+    
+    <div class="bento-container">
+        <div class="glass-panel bento-card bento-small">
+            <div class="profile-wrapper">
+                <div class="avatar-frame">
+                    <img id="mainImg" src="https://i.postimg.cc/fTxd6CWs/IMG-20260116-WA0005.jpg" alt="Md. Rashedul Alam">
+                </div>
+                <div class="carousel-nav" id="thumbBar">
+                    <img src="https://i.postimg.cc/fTxd6CWs/IMG-20260116-WA0005.jpg" class="active" onclick="changeImg(0)" alt="T1">
+                    <img src="https://i.postimg.cc/J0jyC7Lf/IMG-20260116-WA0007.jpg" onclick="changeImg(1)" alt="T2">
+                    <img src="https://i.postimg.cc/sf51X2kn/IMG-20260116-WA0009.jpg" onclick="changeImg(2)" alt="T3">
+                    <img src="https://i.postimg.cc/9f4QjXPP/IMG-20260116-WA0011.jpg" onclick="changeImg(3)" alt="T4">
+                    <img src="https://i.postimg.cc/Pr2Xpv26/IMG-20260116-WA0014.jpg" onclick="changeImg(4)" alt="T5">
+                </div>
             </div>
-        </div> 
+        </div>
 
-        <div class="card" style="width: 100%; padding: 40px; border-left: 4px solid var(--gold);">
-            <div style="display: flex; align-items: center; gap: 20px;">
-                <div style="flex: 1;">
-                    <span style="color: var(--gold); font-weight: 800; font-size: 0.8rem; text-transform: uppercase;">Leadership</span>
-                    <h4 style="color: var(--text); font-size: 2.2rem; margin-top: 5px;">CEO & Founder, <span style="color: var(--gold);">Beloved.com</span></h4>
+        <div class="glass-panel bento-card bento-large" style="border-left: 4px solid var(--accent-solid);">
+            <div>
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 25px;">
+                    <span style="color: var(--accent-solid); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;"><i class="fas fa-crown" style="margin-right: 8px;"></i> Current Directive</span>
+                    <div class="glass-panel" style="padding: 6px 16px; border-radius: 20px; font-size: 0.8rem; color: var(--text-main); font-weight: 600;"><span class="pulse-dot"></span>Active Deployment</div>
                 </div>
+                <h3 style="font-size: 2.4rem; font-weight: 700; color: var(--text-main); line-height: 1.2; margin-bottom: 10px;">Teaching Assistant</h3>
+                <p style="color: var(--text-sub); font-size: 1.1rem; margin-bottom: 30px;">Department of Marketing — Daffodil International University</p>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; border-top: 1px solid var(--glass-border); padding-top: 30px;">
+                    <div>
+                        <h4 style="font-size: 0.9rem; text-transform: uppercase; color: var(--accent-solid); letter-spacing: 1px; margin-bottom: 8px;">Club Leadership</h4>
+                        <p style="color: var(--text-sub); font-size: 1rem;">Management Information Secretary, <span style="color: var(--text-main); font-weight: 600;">Skill Up Club</span></p>
+                    </div>
+                    <div>
+                        <h4 style="font-size: 0.9rem; text-transform: uppercase; color: var(--accent-solid); letter-spacing: 1px; margin-bottom: 8px;">Venture Asset</h4>
+                        <p style="color: var(--text-sub); font-size: 1rem;">CEO & Founder, <span style="color: var(--text-main); font-weight: 600;">Beloved.com</span></p>
+                    </div>
                 </div>
+            </div>
+            
+            <div style="margin-top: 40px; background: rgba(0,0,0,0.1); border: 1px solid var(--glass-border); padding: 20px; border-radius: 16px; font-size: 0.95rem; color: var(--text-sub); backdrop-filter: blur(10px);">
+                <i class="fas fa-info-circle" style="color: var(--accent-solid); margin-right: 10px;"></i> Executing audience validation matrices, systemic brand expansion strategies, and collaborative stakeholder integration parameters across collegiate domains.
+            </div>
         </div>
-    </div>
-</section> 
 
-<section id="education" data-aos="fade-up">
-    <h2 class="section-title">Academic <span>Background</span></h2>
-    <div class="edu-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
-        <div class="card">
-            <span style="color: var(--gold); font-weight: 800; font-size: 0.8rem;">UNIVERSITY</span>
-            <h3 style="margin: 10px 0;">BBA in Marketing</h3>
-            <p>Daffodil International University</p>
-            <p style="color: var(--gold); font-weight: 900; font-size: 1.8rem; margin-top: 10px;">Current CGPA: 3.50</p>
+        <div class="glass-panel bento-card bento-medium">
+            <h4 style="color: var(--text-main); font-size: 1.2rem; font-weight: 600; margin-bottom: 24px;"><i class="fas fa-project-diagram" style="margin-right: 10px; color: var(--accent-solid);"></i> Operational Engagements</h4>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                <div class="timeline-item">
+                    <h5 style="font-size: 1rem; margin-bottom: 4px; font-weight: 600;">Executive Operations</h5>
+                    <p style="font-size: 0.85rem; color: var(--text-sub);">Youth Leadership Bootcamp</p>
+                </div>
+                <div class="timeline-item">
+                    <h5 style="font-size: 1rem; margin-bottom: 4px; font-weight: 600;">Senior Marshal</h5>
+                    <p style="font-size: 0.85rem; color: var(--text-sub);">Oitijjer Haat Cultural Forum</p>
+                </div>
+                <div class="timeline-item">
+                    <h5 style="font-size: 1rem; margin-bottom: 4px; font-weight: 600;">Corporate Liaison</h5>
+                    <p style="font-size: 0.85rem; color: var(--text-sub);">Industry Talk Forums & Seminars</p>
+                </div>
+            </div>
         </div>
-        <div class="card">
-            <span style="color: var(--gold); font-weight: 800; font-size: 0.8rem;">COLLEGE (2022)</span>
-            <h3 style="margin: 10px 0;">HSC - Humanities</h3>
-            <p>BCIC College, Mirpur</p>
-            <p style="color: var(--gold); font-weight: 700; margin-top: 10px;">GPA: 5.00 / 5.00</p>
-        </div>
-        <div class="card">
-            <span style="color: var(--gold); font-weight: 800; font-size: 0.8rem;">SCHOOL (2020)</span>
-            <h3 style="margin: 10px 0;">SSC - Science</h3>
-            <p>Somapra High School</p>
-            <p style="color: var(--gold); font-weight: 700; margin-top: 10px;">GPA: 4.06 / 5.00</p>
-        </div>
-    </div>
-</section> 
 
-<section id="experience" data-aos="fade-up">
-    <h2 class="section-title">Experience & <span>Leadership</span></h2>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
-        <div class="card">
-            <h3 style="color: var(--gold); margin-bottom: 20px;"><i class="fas fa-briefcase"></i> Key Responsibilities</h3>
-            <ul>
-                <li style="color: var(--text); font-weight: 800; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 5px; margin-bottom: 15px;">Teaching Assistant, Dept. of Marketing | DIU</li>
-                <li>Management Information Secretary, Skill Up Club, DIU</li>
-                <li>Content Creation & Digital Engagement (FB/YT)</li>
-                <li>Organizer, Youth Leadership Bootcamp (AOLY-Camp 2025)</li>
-                <li>Contributor, Department Development Suggestions, DIU</li>
-            </ul>
-        </div>
-        <div class="card">
-            <h3 style="color: var(--gold); margin-bottom: 20px;"><i class="fas fa-hands-helping"></i> Volunteering</h3>
-            <ul>
-                <li>Volunteer, Oitijjer Haat, DIU (2025)</li>
-                <li>Career Talk Seminar, BD Calling IT Ltd (2025)</li>
-                <li>Orientation Program Volunteer, Spring 2025</li>
-                <li>Organizer, BCIC Orientation (2023) & Carnival (2022)</li>
-            </ul>
+        <div class="glass-panel bento-card bento-small" style="background: var(--accent-gradient);">
+            <div>
+                <span style="color: rgba(255,255,255,0.8); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Academic Standings</span>
+                <h4 style="font-size: 2.8rem; font-weight: 800; color: #fff; margin-top: 15px; line-height: 1;">3.50 <span style="font-size: 1rem; color: rgba(255,255,255,0.7); font-weight: 500;">/ CGPA</span></h4>
+            </div>
+            <p style="font-size: 0.9rem; color: rgba(255,255,255,0.9); border-top: 1px solid rgba(255,255,255,0.2); padding-top: 16px;">Undergraduate track at Daffodil International University</p>
         </div>
     </div>
-</section> 
+</section>
+
+<section id="qualifications" data-aos="fade-up">
+    <div class="bento-container" style="grid-template-columns: repeat(2, 1fr);">
+        <div class="glass-panel bento-card">
+            <div>
+                <span style="color: var(--accent-solid); font-weight: 700; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; display: block; margin-bottom: 16px;"><i class="fas fa-graduation-cap" style="margin-right: 8px;"></i> HSC Foundation Matrix</span>
+                <h3 style="font-size: 1.4rem; font-weight: 600; color: var(--text-main); margin-bottom: 6px;">Humanities Concentration</h3>
+                <p style="color: var(--text-sub); font-size: 1rem;">BCIC College, Mirpur</p>
+            </div>
+            <p style="font-size: 1.6rem; font-weight: 700; color: var(--text-main); margin-top: 30px;">5.00 <span style="font-size: 1rem; color: var(--text-muted); font-weight: 400;">GPA Peak</span></p>
+        </div>
+
+        <div class="glass-panel bento-card">
+            <div>
+                <span style="color: var(--accent-solid); font-weight: 700; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; display: block; margin-bottom: 16px;"><i class="fas fa-atom" style="margin-right: 8px;"></i> Secondary Matrix Track</span>
+                <h3 style="font-size: 1.4rem; font-weight: 600; color: var(--text-main); margin-bottom: 6px;">Science Faculty</h3>
+                <p style="color: var(--text-sub); font-size: 1rem;">Somapra High School</p>
+            </div>
+            <p style="font-size: 1.6rem; font-weight: 700; color: var(--text-main); margin-top: 30px;">4.06 <span style="font-size: 1rem; color: var(--text-muted); font-weight: 400;">GPA Achieved</span></p>
+        </div>
+    </div>
+</section>
 
 <section id="skills" data-aos="zoom-in">
-    <h2 class="section-title">Core <span>Expertise</span></h2>
-    <div class="skills-container">
-        <span class="tag">Professional Video Editing</span>
-        <span class="tag">Graphic Design</span>
-        <span class="tag">MS Excel, Word, PowerPoint</span>
-        <span class="tag">Google Docs & Sheets</span>
-        <span class="tag">AI Tools for Productivity</span>
-        <span class="tag">Email Communication</span>
-        <span class="tag">Strategic Leadership</span>
-        <span class="tag">Public Speaking</span>
+    <div class="section-header">
+        <p class="section-subtitle">Execution Capabilities</p>
+        <h2 class="section-title">Core <span>Competence</span></h2>
+    </div>
+    <div class="skills-grid">
+        <div class="skill-pill">Professional Video Production</div>
+        <div class="skill-pill">Graphic Architecture</div>
+        <div class="skill-pill">Data Matrix (Excel, Word)</div>
+        <div class="skill-pill">AI Automation Infrastructure</div>
+        <div class="skill-pill">Strategic Brand Management</div>
+        <div class="skill-pill">Public Keynote Speaking</div>
+        <div class="skill-pill">Corporate Communications</div>
     </div>
 </section> 
 
-<section id="contact" style="text-align: center;" data-aos="fade-up">
-    <h2 class="section-title">Let's <span>Collaborate</span></h2>
-    <div class="card" style="max-width: 600px; margin: auto;">
-        <p style="margin-bottom: 25px; color: var(--sub-text);">Open for professional opportunities and creative collaborations.</p>
-        <p style="font-size: 1.1rem;"><i class="fas fa-envelope" style="color:var(--gold)"></i> imdrashedulalam@gmail.com</p>
-        <p style="margin-top: 15px; font-size: 1.1rem;"><i class="fas fa-phone" style="color:var(--gold)"></i> 01837569796</p>
+<section id="contact" data-aos="fade-up">
+    <div class="glass-panel" style="max-width: 800px; margin: auto; padding: 60px 50px; text-align: center; border-bottom: 4px solid var(--accent-solid);">
+        <p style="margin-bottom: 30px; color: var(--text-sub); font-size: 1.1rem; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.8;">
+            Retained for operational execution deployments, institutional brand strategy consulting, and targeted enterprise media design architecture frameworks.
+        </p>
+        
+        <div style="margin-bottom: 40px; display: flex; justify-content: center; gap: 40px; flex-wrap: wrap;">
+            <p class="glass-panel" style="padding: 12px 24px; font-size: 1rem; font-weight: 600; color: var(--text-main);"><i class="fas fa-envelope" style="color:var(--accent-solid); margin-right: 12px;"></i> imdrashedulalam@gmail.com</p>
+            <p class="glass-panel" style="padding: 12px 24px; font-size: 1rem; font-weight: 600; color: var(--text-main);"><i class="fas fa-phone" style="color:var(--accent-solid); margin-right: 12px;"></i> 01837569796</p>
+        </div>
+        
+        <div style="display: flex; gap: 24px; justify-content: center; border-top: 1px solid var(--glass-border); padding-top: 40px;">
+            <a href="https://www.linkedin.com/in/rashedanando" target="_blank" class="magnetic glass-panel" style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 50%; color: var(--text-main); font-size: 1.2rem;"><i class="fab fa-linkedin"></i></a>
+            <a href="https://www.facebook.com/share/1DWx2PXYBm/" target="_blank" class="magnetic glass-panel" style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 50%; color: var(--text-main); font-size: 1.2rem;"><i class="fab fa-facebook"></i></a>
+            <a href="https://x.com/AnandoRashed" target="_blank" class="magnetic glass-panel" style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 50%; color: var(--text-main); font-size: 1.2rem;"><i class="fab fa-x-twitter"></i></a>
+            <a href="https://www.instagram.com/rashed.anando" target="_blank" class="magnetic glass-panel" style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 50%; color: var(--text-main); font-size: 1.2rem;"><i class="fab fa-instagram"></i></a>
+            <a href="https://youtube.com/@rashedanando" target="_blank" class="magnetic glass-panel" style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 50%; color: var(--text-main); font-size: 1.2rem;"><i class="fab fa-youtube"></i></a>
+        </div>
     </div>
-</section> 
+</section>
 
-<footer style="padding: 50px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05);">
-    <p style="color: var(--sub-text); font-size: 0.9rem;">&copy; 2026 Md. Rashedul Alam | Teaching Assistant, DIU | CEO, Beloved.com</p>
-</footer> 
+<footer style="text-align: center; padding: 40px 24px; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid var(--glass-border); max-width: 1300px; margin: auto; position: relative; z-index: 2;">
+    <p>&copy; 2026 Md. Rashedul Alam. All Rights Reserved.</p>
+</footer>
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-    AOS.init({ duration: 1000, once: true, offset: 100 }); 
+    // Initialize Animate On Scroll Engine
+    AOS.init({
+        duration: 1000,
+        once: true
+    });
 
-    const football = document.getElementById('moving-football');
-    const scrollProgress = document.getElementById("scroll-progress"); 
-    const track = document.querySelector('.scroll-track');
-    let isDragging = false; 
-
-    function updateScrollUI() {
-        let winScroll = window.pageYOffset || document.documentElement.scrollTop;
-        let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        let scrolled = (winScroll / height) * 100;
+    // ====== THEME MANAGEMENT SYSTEM ======
+    function setTheme(theme) {
+        document.body.setAttribute('data-theme', theme);
         
-        scrollProgress.style.width = scrolled + "%";
-        if (!isDragging) {
-            football.style.top = scrolled + "%";
-            football.style.transform = `translate(-50%, -50%) rotate(${winScroll * 0.8}deg)`;
-        }
-    } 
-
-    window.onscroll = updateScrollUI; 
-
-    function handleDrag(e) {
-        if (!isDragging) return;
-        const trackRect = track.getBoundingClientRect();
-        let clientY = e.clientY || (e.touches ? e.touches[0].clientY : 0);
-        let offset = clientY - trackRect.top;
-        let percentage = Math.max(0, Math.min(100, (offset / trackRect.height) * 100));
+        document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+        const targetBtn = document.getElementById(`btn-${theme}`);
+        if (targetBtn) targetBtn.classList.add('active');
         
-        football.style.top = percentage + "%";
-        const scrollTarget = (percentage / 100) * (document.documentElement.scrollHeight - window.innerHeight);
-        window.scrollTo(0, scrollTarget);
-    } 
+        localStorage.setItem('structural-theme', theme);
+    }
+    // Restore Cached Preference
+    const nativeTheme = localStorage.getItem('structural-theme') || 'night';
+    setTheme(nativeTheme);
 
-    football.addEventListener('mousedown', (e) => { isDragging = true; e.preventDefault(); });
-    window.addEventListener('mousemove', handleDrag);
-    window.addEventListener('mouseup', () => { isDragging = false; }); 
+    // ====== CHARACTER SPRING TYPING SYSTEM ======
+    const textSignature = "Md. Rashedul Alam";
+    const headerElement = document.getElementById('animated-heading');
+    
+    textSignature.split("").forEach((char, idx) => {
+        const spanNode = document.createElement('span');
+        spanNode.className = 'char-span';
+        spanNode.innerHTML = char === " " ? "&nbsp;" : char;
+        spanNode.style.transitionDelay = `${idx * 45}ms`;
+        headerElement.appendChild(spanNode);
+    });
 
-    football.addEventListener('touchstart', () => { isDragging = true; }, {passive: false});
-    window.addEventListener('touchmove', (e) => { 
-        if(isDragging) { e.preventDefault(); handleDrag(e); } 
-    }, {passive: false});
-    window.addEventListener('touchend', () => { isDragging = false; }); 
+    window.addEventListener('DOMContentLoaded', () => {
+        setTimeout(() => {
+            document.querySelectorAll('.char-span').forEach(node => {
+                node.style.opacity = '1';
+                node.style.transform = 'translateY(0)';
+            });
+            document.querySelectorAll('.fade-element').forEach(node => {
+                node.style.opacity = '1';
+                node.style.transform = 'translateY(0)';
+            });
+        }, 150);
+    });
 
-    const themeToggle = document.getElementById('theme-toggle');
-    const themeIcon = document.getElementById('theme-icon'); 
-
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'light') {
-        document.body.classList.add('light-mode');
-        themeToggle.checked = true;
-        themeIcon.classList.replace('fa-moon', 'fa-sun');
-    } 
-
-    themeToggle.addEventListener('change', () => {
-        if (themeToggle.checked) {
-            document.body.classList.add('light-mode');
-            themeIcon.classList.replace('fa-moon', 'fa-sun');
-            localStorage.setItem('theme', 'light');
-        } else {
-            document.body.classList.remove('light-mode');
-            themeIcon.classList.replace('fa-sun', 'fa-moon');
-            localStorage.setItem('theme', 'dark');
-        }
-    }); 
-
-    const images = [
+    // ====== BENTO HUB INTERACTIVE CAROUSEL ======
+    const imageMatrix = [
         "https://i.postimg.cc/fTxd6CWs/IMG-20260116-WA0005.jpg",
         "https://i.postimg.cc/J0jyC7Lf/IMG-20260116-WA0007.jpg",
         "https://i.postimg.cc/sf51X2kn/IMG-20260116-WA0009.jpg",
         "https://i.postimg.cc/9f4QjXPP/IMG-20260116-WA0011.jpg",
         "https://i.postimg.cc/Pr2Xpv26/IMG-20260116-WA0014.jpg"
-    ]; 
-
-    let currentIndex = 0;
-    const mainImg = document.getElementById('mainImg');
-    const thumbs = document.querySelectorAll('.thumb-nav img'); 
+    ];
 
     function changeImg(index) {
-        currentIndex = index;
-        mainImg.style.opacity = '0';
+        const primaryImg = document.getElementById('mainImg');
+        primaryImg.style.opacity = '0';
+        primaryImg.style.transform = 'scale(0.96)';
+        
         setTimeout(() => {
-            mainImg.src = images[currentIndex];
-            mainImg.style.opacity = '1';
+            primaryImg.src = imageMatrix[index];
+            primaryImg.style.opacity = '1';
+            primaryImg.style.transform = 'scale(1)';
         }, 300);
-        thumbs.forEach(t => t.classList.remove('active'));
-        thumbs[currentIndex].classList.add('active');
-    } 
 
-    setInterval(() => {
-        currentIndex = (currentIndex + 1) % images.length;
-        changeImg(currentIndex);
-    }, 6000);
-</script> 
+        const nodes = document.querySelectorAll('#thumbBar img');
+        nodes.forEach(node => node.classList.remove('active'));
+        nodes[index].classList.add('active');
+    }
+
+    // ====== SCROLL TRACKING & BIDIRECTIONAL DRAG MATRIX ======
+    const trackerNode = document.getElementById('moving-football');
+    const metricLine = document.getElementById('scroll-progress');
+    const controlWrapper = document.querySelector('.scroll-control-container');
+    
+    let isDragging = false;
+
+    // Window scroll event updates football position natively
+    window.addEventListener('scroll', () => {
+        if (isDragging) return; // Prevent loop conflict during active drag setup
+        
+        const scrollDelta = window.scrollY;
+        const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const layoutPercentage = totalHeight > 0 ? (scrollDelta / totalHeight) * 100 : 0;
+
+        metricLine.style.width = `${layoutPercentage}%`;
+
+        if (controlWrapper) {
+            const boundaryHeight = controlWrapper.clientHeight - 60; 
+            const dynamicOffset = 30 + (layoutPercentage / 100) * boundaryHeight;
+            trackerNode.style.top = `${dynamicOffset}px`;
+            trackerNode.style.transform = `translate(-50%, -50%) rotate(${scrollDelta * 0.4}deg)`;
+        }
+    });
+
+    // Core Drag Processing Architecture Function
+    function processDragAction(clientY) {
+        const containerRect = controlWrapper.getBoundingClientRect();
+        const basePadding = 30;
+        const usefulHeight = containerRect.height - 60;
+        
+        let localizedY = clientY - containerRect.top - basePadding;
+        localizedY = Math.max(0, Math.min(localizedY, usefulHeight));
+        
+        const activePercentage = localizedY / usefulHeight;
+        const maximumScrollValue = document.documentElement.scrollHeight - window.innerHeight;
+        
+        // Execute real-time window tracking update with instant behavior to bypass CSS smooth scrolling conflict
+        window.scrollTo({ top: activePercentage * maximumScrollValue, behavior: 'instant' });
+        
+        // Immediate visual response rendering
+        metricLine.style.width = `${activePercentage * 100}%`;
+        trackerNode.style.top = `${basePadding + localizedY}px`;
+        trackerNode.style.transform = `translate(-50%, -50%) rotate(${window.scrollY * 0.4}deg)`;
+    }
+
+    // Desktop Mouse Drag Binding Matrix
+    trackerNode.addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        isDragging = true;
+        document.body.style.userSelect = 'none';
+        document.documentElement.style.scrollBehavior = 'auto'; // Temporarily disable smooth scroll to prevent lag
+    });
+
+    window.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        processDragAction(e.clientY);
+    });
+
+    window.addEventListener('mouseup', () => {
+        if (isDragging) {
+            isDragging = false;
+            document.body.style.userSelect = '';
+            document.documentElement.style.scrollBehavior = 'smooth'; // Restore smooth scroll
+        }
+    });
+
+    // Mobile / Touch Drag Binding Matrix
+    trackerNode.addEventListener('touchstart', (e) => {
+        isDragging = true;
+        document.documentElement.style.scrollBehavior = 'auto';
+    }, { passive: true });
+
+    window.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        processDragAction(e.touches[0].clientY);
+    }, { passive: false });
+
+    window.addEventListener('touchend', () => {
+        isDragging = false;
+        document.documentElement.style.scrollBehavior = 'smooth';
+    });
+
+    // Fire baseline configuration event
+    window.dispatchEvent(new Event('scroll'));
+
+    // ====== MAGNETIC INTERACTION MATRIX ======
+    document.querySelectorAll('.magnetic').forEach(node => {
+        node.addEventListener('mousemove', function(event) {
+            const metrics = this.getBoundingClientRect();
+            const vectorX = event.clientX - metrics.left - metrics.width / 2;
+            const vectorY = event.clientY - metrics.top - metrics.height / 2;
+            this.style.transform = `translate(${vectorX * 0.28}px, ${vectorY * 0.28}px) scale(1.03)`;
+        });
+        
+        node.addEventListener('mouseout', function() {
+            this.style.transform = 'translate(0px, 0px) scale(1)';
+        });
+    });
+</script>
 </body>
 </html>
