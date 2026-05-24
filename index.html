@@ -200,7 +200,9 @@
         .section-title span { background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 500; }
         .section-subtitle { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 4px; color: var(--accent-solid); margin-bottom: 12px; font-weight: 700; }
 
-        .bento-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        .bento-container, .qualifications-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        .qualifications-grid { grid-template-columns: repeat(2, 1fr); }
+        
         .bento-card { padding: 40px; display: flex; flex-direction: column; justify-content: space-between; }
         .bento-large { grid-column: span 2; grid-row: span 2; }
         .bento-medium { grid-column: span 2; }
@@ -240,6 +242,8 @@
         }
         .carousel-nav img.active, .carousel-nav img:hover { opacity: 1; filter: grayscale(0%); border-color: var(--accent-solid); transform: translateY(-4px) scale(1.05); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
 
+        .contact-panel { padding: 60px 50px; }
+
         /* ====== THEME TOGGLE ====== */
         .theme-wheel-container {
             position: relative; background: var(--glass-fill); border: 1px solid var(--glass-border); 
@@ -274,12 +278,16 @@
         
         #scroll-progress { position: fixed; top: 0; left: 0; height: 4px; background: var(--accent-gradient); z-index: 9999; width: 0%; transition: width 0.2s cubic-bezier(0.34, 1.56, 0.64, 1); box-shadow: 0 0 10px var(--accent-solid); } 
 
-        /* ====== RESPONSIVE LAYOUT MATRIX ====== */
+        /* ====== RESPONSIVE LAYOUT MATRIX (UPDATED) ====== */
         @media(max-width: 992px) {
             .nav-links { display: none; }
-            .bento-container { grid-template-columns: 1fr; gap: 20px; }
+            .bento-container, .qualifications-grid { grid-template-columns: 1fr; gap: 20px; }
             .bento-large, .bento-medium, .bento-small { grid-column: span 1; grid-row: span 1; }
-            section { padding: 80px 16px; }
+            
+            section { padding: 60px 16px; } 
+            .bento-card { padding: 24px; } 
+            .avatar-frame { height: 280px; }
+            .contact-panel { padding: 40px 24px; }
             
             .scroll-control-container { right: 12px; top: 25%; height: 50%; width: 32px; }
             #moving-football { font-size: 22px; width: 32px; height: 32px; }
@@ -291,9 +299,19 @@
             .theme-btn { width: 30px; height: 30px; font-size: 0.8rem; }
             .nav-chat-btn { padding: 8px 16px; font-size: 0.8rem; }
             
+            section { padding: 50px 16px; } 
+            .avatar-frame { height: 240px; }
+            .carousel-nav img { height: 45px; }
+            .hero-section { min-height: 85vh; padding-bottom: 40px; }
+            .hero-buttons { flex-direction: column; width: 100%; }
+            .btn-vex-solid, .btn-vex-glass { width: 100%; text-align: center; }
+            .hero-right-tag { padding: 12px 20px; font-size: 1rem; width: 100%; text-align: center; }
+            
             .scroll-control-container { right: 6px; width: 24px; }
             #moving-football { font-size: 18px; width: 24px; height: 24px; }
             .scroll-arrow-btn { width: 24px; height: 24px; font-size: 10px; }
+            
+            .contact-panel { padding: 30px 16px; }
         }
     </style>
 </head>
@@ -437,7 +455,7 @@
 </section>
 
 <section id="qualifications" data-aos="fade-up">
-    <div class="bento-container" style="grid-template-columns: repeat(2, 1fr);">
+    <div class="qualifications-grid">
         <div class="glass-panel bento-card">
             <div>
                 <span style="color: var(--accent-solid); font-weight: 700; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; display: block; margin-bottom: 16px;"><i class="fas fa-graduation-cap" style="margin-right: 8px;"></i> HSC Foundation Matrix</span>
@@ -449,11 +467,11 @@
 
         <div class="glass-panel bento-card">
             <div>
-                <span style="color: var(--accent-solid); font-weight: 700; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; display: block; margin-bottom: 16px;"><i class="fas fa-atom" style="margin-right: 8px;"></i> Secondary Matrix Track</span>
-                <h3 style="font-size: 1.4rem; font-weight: 600; color: var(--text-main); margin-bottom: 6px;">Science Faculty</h3>
-                <p style="color: var(--text-sub); font-size: 1rem;">Somapra High School</p>
+                <span style="color: var(--accent-solid); font-weight: 700; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; display: block; margin-bottom: 16px;"><i class="fas fa-certificate" style="margin-right: 8px;"></i> Professional Matrix</span>
+                <h3 style="font-size: 1.4rem; font-weight: 600; color: var(--text-main); margin-bottom: 6px;">Gemini Certified Student</h3>
+                <p style="color: var(--text-sub); font-size: 1rem;">AI Certification Program</p>
             </div>
-            <p style="font-size: 1.6rem; font-weight: 700; color: var(--text-main); margin-top: 30px;">4.06 <span style="font-size: 1rem; color: var(--text-muted); font-weight: 400;">GPA Achieved</span></p>
+            <p style="font-size: 1.6rem; font-weight: 700; color: var(--text-main); margin-top: 30px;">Qualified <span style="font-size: 1rem; color: var(--text-muted); font-weight: 400;">2026</span></p>
         </div>
     </div>
 </section>
@@ -475,7 +493,7 @@
 </section> 
 
 <section id="contact" data-aos="fade-up">
-    <div class="glass-panel" style="max-width: 800px; margin: auto; padding: 60px 50px; text-align: center; border-bottom: 4px solid var(--accent-solid);">
+    <div class="glass-panel contact-panel" style="max-width: 800px; margin: auto; text-align: center; border-bottom: 4px solid var(--accent-solid);">
         <p style="margin-bottom: 30px; color: var(--text-sub); font-size: 1.1rem; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.8;">
             Retained for operational execution deployments, institutional brand strategy consulting, and targeted enterprise media design architecture frameworks.
         </p>
@@ -485,7 +503,7 @@
             <p class="glass-panel" style="padding: 12px 24px; font-size: 1rem; font-weight: 600; color: var(--text-main);"><i class="fas fa-phone" style="color:var(--accent-solid); margin-right: 12px;"></i> 01837569796</p>
         </div>
         
-        <div style="display: flex; gap: 24px; justify-content: center; border-top: 1px solid var(--glass-border); padding-top: 40px;">
+        <div style="display: flex; gap: 24px; justify-content: center; border-top: 1px solid var(--glass-border); padding-top: 40px; flex-wrap: wrap;">
             <a href="https://www.linkedin.com/in/rashedanando" target="_blank" class="magnetic glass-panel" style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 50%; color: var(--text-main); font-size: 1.2rem;"><i class="fab fa-linkedin"></i></a>
             <a href="https://www.facebook.com/share/1DWx2PXYBm/" target="_blank" class="magnetic glass-panel" style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 50%; color: var(--text-main); font-size: 1.2rem;"><i class="fab fa-facebook"></i></a>
             <a href="https://x.com/AnandoRashed" target="_blank" class="magnetic glass-panel" style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 50%; color: var(--text-main); font-size: 1.2rem;"><i class="fab fa-x-twitter"></i></a>
