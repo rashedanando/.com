@@ -10,6 +10,7 @@
     <meta name="description" content="Md. Rashedul Alam is a Business Strategist, Teaching Assistant at DIU, and Content Creator. Specializing in operational execution and brand expansion.">  
     <meta name="keywords" content="Md. Rashedul Alam, Business Strategist, Teaching Assistant, DIU, Content Creator, Beloved.com, Portfolio">
     <meta name="author" content="Md. Rashedul Alam">
+    <link rel="canonical" href="https://rashedanando.github.io/">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
@@ -39,6 +40,30 @@
     <!-- Animations -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">   
   
+    <!-- JSON-LD SEO Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfilePage",
+      "mainEntity": {
+        "@type": "Person",
+        "name": "Md. Rashedul Alam",
+        "jobTitle": "Business Strategist & Teaching Assistant",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Daffodil International University"
+        },
+        "url": "https://rashedanando.github.io/",
+        "image": "https://i.postimg.cc/fTxd6CWs/IMG-20260116-WA0005.jpg",
+        "sameAs": [
+          "https://www.linkedin.com/in/rashedanando",
+          "https://x.com/AnandoRashed",
+          "https://youtube.com/@rashedanando"
+        ]
+      }
+    }
+    </script>
+
     <style>  
         /* ====== LUCID FLUID UI MATRIX ====== */  
         :root, body[data-theme="night"] {  
@@ -104,7 +129,14 @@
             line-height: 1.6;  
             overflow-x: hidden;  
             transition: background 0.5s ease, color 0.5s ease;  
+            opacity: 0;
+            animation: smoothLoad 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }  
+        
+        @keyframes smoothLoad {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
   
         /* ====== AMBIENT MESH & BLOBS ====== */  
         .ambient-mesh {  
@@ -119,12 +151,6 @@
         .blob-1 { width: 50vw; height: 50vw; background: var(--blob-1); top: -10%; left: -10%; animation-delay: 0s; }  
         .blob-2 { width: 45vw; height: 45vw; background: var(--blob-2); bottom: -10%; right: -5%; animation-delay: -5s; animation-direction: alternate-reverse; }  
         .blob-3 { width: 40vw; height: 40vw; background: var(--blob-3); top: 30%; left: 30%; animation-delay: -10s; }  
-  
-        @keyframes float {  
-            0% { transform: translate(0, 0) scale(1) rotate(0deg); }  
-            50% { transform: translate(3vw, 5vh) scale(1.05) rotate(20deg); }  
-            100% { transform: translate(-3vw, -3vh) scale(0.95) rotate(-10deg); }  
-        }  
   
         .noise-layer {  
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;  
@@ -153,9 +179,9 @@
         }  
   
         /* ====== NAVIGATION ====== */  
-        .nav-container { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); width: calc(100% - 40px); max-width: 1300px; z-index: 9999; }  
+        .nav-container { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); width: calc(100% - 40px); max-width: 1300px; z-index: 9999; transition: all 0.4s ease; }  
         nav.glass-panel { border-radius: 20px; padding: 12px 28px; display: flex; justify-content: space-between; align-items: center; }  
-        nav.glass-panel:hover { transform: none; } /* Disable lift on nav */
+        nav.glass-panel:hover { transform: none; }
           
         .nav-logo { font-size: 1.4rem; font-weight: 800; letter-spacing: -0.05em; color: var(--text-main); }  
         .nav-links { display: flex; gap: 35px; align-items: center; }  
@@ -165,7 +191,32 @@
         .nav-chat-btn { background: var(--text-main); color: var(--bg-base); padding: 10px 22px; border-radius: 14px; font-size: 0.85rem; font-weight: 700; cursor: pointer; text-decoration: none; transition: all 0.3s ease; }  
         .nav-chat-btn:hover { transform: scale(1.05); box-shadow: 0 10px 20px rgba(255,255,255,0.1); }  
         body[data-theme="day"] .nav-chat-btn { color: #fff; background: var(--accent-solid); }  
+
+        .hamburger-btn { display: none; width: 42px; height: 42px; border-radius: 14px; background: transparent; border: 1px solid var(--glass-border); color: var(--text-sub); font-size: 1.2rem; cursor: pointer; align-items: center; justify-content: center; transition: all 0.3s ease; }
+        .hamburger-btn:hover { color: var(--text-main); background: rgba(255,255,255,0.05); }
   
+        /* ====== MOBILE MENU OVERLAY ====== */
+        .mobile-menu-overlay {
+            position: fixed; inset: 0; width: 100vw; height: 100vh;
+            background: rgba(2, 4, 10, 0.95); backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            z-index: 9998; 
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 35px;
+            opacity: 0; pointer-events: none; transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .mobile-menu-overlay.active { opacity: 1; pointer-events: all; }
+        
+        .mobile-link { font-size: 1.6rem; font-weight: 700; color: var(--text-sub); text-decoration: none; transition: all 0.3s ease; transform: translateY(20px); opacity: 0; }
+        .mobile-menu-overlay.active .mobile-link { transform: translateY(0); opacity: 1; }
+        .mobile-link:hover { color: var(--text-main); text-shadow: 0 0 15px var(--glass-glow); }
+        
+        .mobile-connect-btn { 
+            background: var(--accent-gradient); color: #fff; padding: 16px 40px; border-radius: 50px; 
+            font-size: 1.1rem; font-weight: 600; text-decoration: none; box-shadow: var(--glass-glow);
+            transform: translateY(20px); opacity: 0; transition: all 0.5s ease 0.2s;
+        }
+        .mobile-menu-overlay.active .mobile-connect-btn { transform: translateY(0); opacity: 1; }
+
         /* ====== STATUS BADGE ====== */
         .status-badge {
             display: inline-flex; align-items: center; gap: 10px;
@@ -182,10 +233,13 @@
             position: relative; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 100px 24px 80px 24px; overflow: hidden;  
         }  
           
-        .hero-video-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; pointer-events: none; opacity: 0.8; }  
+        .hero-video-bg { 
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+            object-fit: cover; z-index: 0; pointer-events: none; opacity: 1; 
+        }  
         .hero-video-overlay {  
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;  
-            background: linear-gradient(180deg, rgba(2,4,10,0.3) 0%, var(--bg-base) 100%);  
+            background: linear-gradient(180deg, rgba(2,4,10,0.1) 0%, rgba(2,4,10,0.4) 60%, var(--bg-base) 100%);  
             z-index: 1; pointer-events: none;  
         }  
           
@@ -207,11 +261,10 @@
         .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }  
         .btn-vex-solid { background: var(--accent-gradient); color: #fff; padding: 16px 36px; border-radius: 16px; font-weight: 600; text-decoration: none; transition: all 0.4s ease; border: 1px solid rgba(255,255,255,0.2); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 10px; font-size: 1rem; }  
         .btn-vex-solid:hover { transform: translateY(-3px); box-shadow: var(--glass-glow); border-color: rgba(255,255,255,0.4); }  
-        .btn-vex-solid:active { transform: scale(0.95); } /* Added satisfying physical click feel */
+        .btn-vex-solid:active { transform: scale(0.95); } 
           
         .btn-vex-glass { padding: 16px 36px; font-weight: 600; color: var(--text-main); text-decoration: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 10px; font-size: 1rem; }  
         
-        /* Updated Sleek Pill Tag */
         .hero-right-tag { 
             display: inline-block; 
             padding: 16px 32px; 
@@ -225,7 +278,50 @@
             border: 1px solid var(--glass-border);
             backdrop-filter: blur(24px);
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-decoration: none;
+            transition: all 0.4s ease;
+            cursor: pointer;
         }  
+        .hero-right-tag:hover {
+            background: var(--accent-gradient);
+            color: #fff;
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(56, 189, 248, 0.4);
+            border-color: transparent;
+        }
+
+        /* ====== RESUME PILL BUTTON ====== */
+        .resume-pill-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 36px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 50px;
+            color: var(--text-main);
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        .resume-pill-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        .resume-pill-btn i {
+            font-size: 1.3rem;
+        }
+        body[data-theme="day"] .resume-pill-btn {
+            background: rgba(15, 23, 42, 0.05);
+            border-color: rgba(15, 23, 42, 0.2);
+            color: var(--text-main);
+        }
+        body[data-theme="day"] .resume-pill-btn:hover {
+            background: rgba(15, 23, 42, 0.1);
+        }
   
         @media(min-width: 1024px) {  
             .hero-grid { flex-direction: row; align-items: flex-end; justify-content: space-between; }  
@@ -282,10 +378,10 @@
   
         /* ====== FLUID CAROUSEL ====== */  
         .profile-wrapper { display: flex; flex-direction: column; align-items: center; }  
-        .avatar-frame { position: relative; width: 100%; height: 350px; border-radius: 20px; overflow: hidden; border: 1px solid var(--glass-border); }  
+        .avatar-frame { position: relative; width: 100%; max-width: 400px; margin: 0 auto; aspect-ratio: 4/5; height: auto; border-radius: 20px; overflow: hidden; border: 1px solid var(--glass-border); }  
         .avatar-frame img { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.4s ease, transform 0.4s ease; }  
           
-        .carousel-nav { display: flex; gap: 10px; margin-top: 20px; width: 100%; justify-content: space-between; }  
+        .carousel-nav { display: flex; gap: 10px; margin-top: 20px; width: 100%; justify-content: space-between; max-width: 400px; }  
         .carousel-nav img {  
             width: calc(20% - 8px); height: 60px; border-radius: 12px; cursor: pointer; object-fit: cover;  
             border: 1px solid var(--glass-border); opacity: 0.4; filter: grayscale(100%);  
@@ -293,7 +389,7 @@
         }  
         .carousel-nav img.active, .carousel-nav img:hover { opacity: 1; filter: grayscale(0%); border-color: var(--accent-solid); transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }  
   
-        /* ====== PROJECT CARDS ====== */
+        /* ====== PROJECT CARDS & TESTIMONIALS ====== */
         .project-card { padding: 30px; display: flex; flex-direction: column; gap: 20px; height: 100%; }
         .project-icon { width: 50px; height: 50px; border-radius: 12px; background: var(--glass-fill); border: 1px solid var(--glass-border); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--accent-solid); }
         .project-title { font-size: 1.4rem; font-weight: 700; color: var(--text-main); }
@@ -303,13 +399,8 @@
         .project-link { font-size: 0.9rem; font-weight: 600; color: var(--text-main); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: color 0.3s ease; }
         .project-link:hover { color: var(--accent-solid); }
 
-        /* ====== TESTIMONIALS ====== */
-        .testimonial-card { padding: 40px 30px; display: flex; flex-direction: column; gap: 20px; }
-        .quote-icon { font-size: 2rem; color: var(--accent-solid); opacity: 0.5; }
-        .testimonial-text { font-size: 1.05rem; font-style: italic; color: var(--text-sub); line-height: 1.7; flex-grow: 1; }
-        .testimonial-author { border-top: 1px solid var(--glass-border); padding-top: 20px; }
-        .author-name { font-weight: 700; color: var(--text-main); display: block; font-size: 1.1rem; }
-        .author-role { font-size: 0.85rem; color: var(--accent-solid); }
+        .testimonial-card { padding: 40px 30px; display: flex; flex-direction: column; gap: 20px; height: 100%; }
+        .quote-icon { font-size: 2rem; color: var(--accent-solid); opacity: 0.5; margin-bottom: 10px; }
 
         /* ====== CONTACT FORM ====== */
         .contact-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
@@ -344,22 +435,23 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.2);  
         }  
   
-        /* ====== FLUID TRACKING CONTROLS ====== */  
-        .scroll-control-container { position: fixed; right: 30px; top: 20%; height: 60%; width: 40px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; z-index: 1000; }  
-        .scroll-track { position: absolute; width: 2px; height: 100%; background: var(--glass-border); left: 50%; transform: translateX(-50%); border-radius: 4px; }  
-        #moving-football {   
-            position: absolute; font-size: 26px; width: 44px; height: 44px;   
-            display: flex; align-items: center; justify-content: center; left: 50%; top: 0;   
-            transform: translate(-50%, -50%); cursor: grab; filter: drop-shadow(0 0 15px var(--accent-solid));   
-            user-select: none; touch-action: none; z-index: 12;   
-        }  
-        #moving-football:active { cursor: grabbing; transform: translate(-50%, -50%) scale(1.15); }  
-        .scroll-arrow-btn { background: var(--glass-fill); border: 1px solid var(--glass-border); color: var(--text-muted); width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; backdrop-filter: blur(10px); transition: all 0.3s ease; z-index: 11; }  
-        .scroll-arrow-btn:hover { color: var(--text-main); background: var(--accent-gradient); transform: scale(1.15); box-shadow: var(--glass-glow); border-color: transparent; }   
+        /* ====== SCROLL PROGRESS ====== */  
         #scroll-progress { position: fixed; top: 0; left: 0; height: 4px; background: var(--accent-gradient); z-index: 9999; width: 0%; transition: width 0.1s ease; box-shadow: 0 0 10px var(--accent-solid); }   
   
+        /* ====== MOBILE FAB (FLOATING ACTION BUTTON) ====== */
+        .mobile-fab {
+            position: fixed; bottom: 30px; right: 30px; width: 56px; height: 56px;
+            border-radius: 50%; background: var(--accent-gradient); color: #fff;
+            display: flex; align-items: center; justify-content: center; font-size: 1.3rem;
+            box-shadow: 0 10px 25px rgba(56, 189, 248, 0.4); border: 1px solid rgba(255,255,255,0.2);
+            z-index: 999; cursor: pointer; opacity: 0; pointer-events: none; 
+            transform: translateY(20px); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .mobile-fab.visible { opacity: 1; pointer-events: all; transform: translateY(0); }
+        .mobile-fab:active { transform: scale(0.9); }
+
         /* ====== FOOTER ====== */
-        footer { padding: 60px 24px 40px; border-top: 1px solid var(--glass-border); max-width: 1300px; margin: auto; position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 30px; }
+        footer { padding: 60px 24px 80px; border-top: 1px solid var(--glass-border); max-width: 1300px; margin: auto; position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 30px; }
         .social-links { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
         .social-links a { width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 50%; color: var(--text-main); font-size: 1.2rem; transition: all 0.3s ease; text-decoration: none; }
         .social-links a:hover { background: var(--accent-gradient); color: #fff; transform: translateY(-4px); box-shadow: var(--glass-glow); border-color: transparent; }
@@ -375,36 +467,49 @@
             .contact-wrapper { grid-template-columns: 1fr; gap: 40px; }
         }
 
+        /* Mobile Adjustments */
         @media(max-width: 768px) {  
-            .nav-links { display: none; }  
-            .scroll-control-container { display: none; } /* HIDDEN ON MOBILE/TABLET FOR UX */
-            
             .bento-container, .projects-grid, .testimonials-grid { grid-template-columns: 1fr; }  
             .bento-large, .bento-medium, .bento-small { grid-column: span 1; grid-row: span 1; }  
               
-            section { padding: 80px 16px; }   
-            .section-title { font-size: clamp(2rem, 8vw, 2.5rem); }
+            section { padding: 80px 20px; }   
+            .section-title { font-size: clamp(2.2rem, 8vw, 2.8rem); }
             .bento-card, .project-card, .testimonial-card, .contact-form { padding: 24px; }   
-            .avatar-frame { height: 300px; }  
             
-            .footer-bottom { flex-direction: column; justify-content: center; }
+            /* Nav Top Bar Fix for Mobile Overlay Menu */
+            .nav-links, .nav-chat-btn { display: none; }
+            .hamburger-btn { display: flex; }
+            .nav-container { width: calc(100% - 32px); top: 20px; }
+            nav.glass-panel { padding: 12px 16px; border-radius: 18px; }
+            
+            .footer-bottom { flex-direction: column; justify-content: center; gap: 15px; }
         }  
-          
+        
+        @media(min-width: 769px) {
+            .mobile-fab { display: none; } 
+        }
+
         @media(max-width: 480px) {  
-            nav.glass-panel { padding: 12px 16px; }  
-            .nav-logo { font-size: 1.2rem; }  
-            .theme-btn { width: 32px; height: 32px; font-size: 0.9rem; }  
-            .nav-chat-btn { padding: 8px 16px; font-size: 0.85rem; }  
-              
             section { padding: 60px 16px; }   
-            .avatar-frame { height: 260px; }  
             .carousel-nav img { height: 50px; }  
               
-            .hero-section { min-height: 100vh; padding: 120px 16px 60px 16px; justify-content: flex-end; }  
+            .hero-section { min-height: 100vh; padding: 100px 16px 80px 16px; justify-content: flex-end; }  
+            
+            /* ENFORCING SINGLE ROW NAME ON MOBILE */
+            .hero-heading { 
+                font-size: clamp(1.5rem, 8.5vw, 2.8rem) !important; 
+                white-space: nowrap !important;
+            }
+
+            /* BOLDER HEADER TEXT FOR MOBILE */
+            .hero-sub {
+                font-weight: 600 !important;
+                color: var(--text-main) !important; 
+            }
               
             .hero-buttons { flex-direction: column; width: 100%; }  
             .btn-vex-solid, .btn-vex-glass { width: 100%; text-align: center; }  
-            .hero-right-tag { padding: 16px 20px; font-size: 0.9rem; width: 100%; text-align: center; margin-top: 20px; }  
+            .hero-right-tag { padding: 16px 20px; font-size: 0.85rem; width: 100%; text-align: center; margin-top: 10px; }  
         }  
     </style>  
 </head>  
@@ -418,321 +523,339 @@
   
 <div class="noise-layer"></div>  
 <div id="scroll-progress"></div>   
+
+<!-- Mobile Full Screen Menu Overlay -->
+<div id="mobile-menu" class="mobile-menu-overlay">
+    <a href="#about" class="mobile-link">Overview</a>
+    <a href="#projects" class="mobile-link">Ventures</a>
+    <a href="#experience" class="mobile-link">Experience</a>
+    <a href="#trust" class="mobile-link">Trust</a>
+    <a href="#contact" class="mobile-link">Contact</a>
+    <a href="https://wa.me/8801837569796" target="_blank" class="mobile-connect-btn">Connect <i class="fas fa-arrow-right" style="margin-left: 8px;"></i></a>
+</div>
   
-<!-- Desktop only scroll tracker -->
-<div class="scroll-control-container">  
-    <button class="scroll-arrow-btn" aria-label="Scroll Up" onclick="window.scrollTo({top: 0, behavior: 'smooth'})"><i class="fas fa-chevron-up"></i></button>  
-    <div class="scroll-track"></div>  
-    <div id="moving-football">⚽</div>  
-    <button class="scroll-arrow-btn" aria-label="Scroll Down" onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})"><i class="fas fa-chevron-down"></i></button>  
-</div>   
-  
-<div class="nav-container">  
+<header class="nav-container">  
     <nav class="glass-panel">  
         <div class="nav-logo">RA.</div>  
         <div class="nav-links">  
             <a href="#about">Overview</a>  
             <a href="#projects">Ventures</a>  
             <a href="#experience">Experience</a>  
+            <a href="#trust">Trust</a>  
             <a href="#contact">Contact</a>  
         </div>  
-        <div style="display: flex; align-items: center; gap: 16px;">  
+        <div style="display: flex; align-items: center; gap: 12px;">  
             <div class="theme-wheel-container">  
                 <button class="theme-btn" id="btn-night" onclick="setTheme('night')" aria-label="Dark Mode" title="Obsidian Night"><i class="fas fa-moon"></i></button>  
                 <button class="theme-btn" id="btn-dusk" onclick="setTheme('dusk')" aria-label="Dusk Mode" title="Cyber Dusk"><i class="fas fa-star-of-david"></i></button>  
                 <button class="theme-btn" id="btn-day" onclick="setTheme('day')" aria-label="Light Mode" title="Alabaster Day"><i class="fas fa-sun"></i></button>  
             </div>  
-            <a href="https://wa.me/8801837569796" target="_blank" class="nav-chat-btn magnetic">Connect</a>  
+            <a href="https://wa.me/8801837569796" target="_blank" class="nav-chat-btn magnetic">Connect</a> 
+            <button id="hamburger-btn" class="hamburger-btn" aria-label="Toggle Menu">
+                <i class="fas fa-bars"></i>
+            </button> 
         </div>  
     </nav>  
-</div>  
+</header>  
   
-<header class="hero-section">  
-    <video autoplay loop muted playsinline preload="none" poster="https://i.postimg.cc/fTxd6CWs/IMG-20260116-WA0005.jpg" class="hero-video-bg">  
-        <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260403_050628_c4e32401-fab4-4a27-b7a8-6e9291cd5959.mp4" type="video/mp4">  
-        Your browser does not support the video tag.
-    </video>  
-    <div class="hero-video-overlay"></div>  
-  
-    <div class="hero-content-wrapper">  
-        <div class="hero-grid">  
-            <div style="overflow: hidden; max-width: 100%;">  
-                <div class="status-badge fade-element"><span class="pulse-dot"></span> Available for Consulting</div>
-                <h1 id="animated-heading" class="hero-heading"></h1>  
-                <p id="fade-subheading" class="hero-sub fade-element">  
-                    Business Strategist & Teaching Assistant. We back visionaries and craft operational ventures that define what comes next.  
-                </p>  
-                <div id="fade-buttons" class="hero-buttons fade-element">  
-                    <a href="#projects" class="btn-vex-solid magnetic">View Ventures <i class="fas fa-arrow-right"></i></a>  
-                    <!-- Removed redundant Download CV button here -->
-                </div>  
-            </div>  
-            <div id="fade-tag" class="fade-element">  
-                <!-- Updated Pill-Shaped Tag -->
-                <div class="hero-right-tag">Strategy • Leadership • Execution</div>  
-            </div>  
-        </div>  
-    </div>  
-</header>   
-  
-<section id="about" data-aos="fade-up">  
-    <div class="section-header">  
-        <p class="section-subtitle">Operational Matrix</p>  
-        <h2 class="section-title">Executive <span>Overview</span></h2>  
-    </div>  
+<main>
+    <section class="hero-section">  
+        <video autoplay loop muted playsinline preload="auto" poster="https://i.postimg.cc/fTxd6CWs/IMG-20260116-WA0005.jpg" class="hero-video-bg">  
+            <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260403_050628_c4e32401-fab4-4a27-b7a8-6e9291cd5959.mp4" type="video/mp4">  
+        </video>  
+        <div class="hero-video-overlay"></div>  
       
-    <div class="bento-container">  
-        <div class="glass-panel bento-card bento-small">  
-            <div class="profile-wrapper">  
-                <div class="avatar-frame">  
-                    <img id="mainImg" src="https://i.postimg.cc/fTxd6CWs/IMG-20260116-WA0005.jpg" alt="Md. Rashedul Alam Headshot" loading="lazy">  
-                </div>  
-                <div class="carousel-nav" id="thumbBar">  
-                    <img src="https://i.postimg.cc/fTxd6CWs/IMG-20260116-WA0005.jpg" class="active" onclick="changeImg(0)" alt="Rashedul Alam Portrait 1" loading="lazy">  
-                    <img src="https://i.postimg.cc/J0jyC7Lf/IMG-20260116-WA0007.jpg" onclick="changeImg(1)" alt="Rashedul Alam Portrait 2" loading="lazy">  
-                    <img src="https://i.postimg.cc/sf51X2kn/IMG-20260116-WA0009.jpg" onclick="changeImg(2)" alt="Rashedul Alam Portrait 3" loading="lazy">  
-                    <img src="https://i.postimg.cc/9f4QjXPP/IMG-20260116-WA0011.jpg" onclick="changeImg(3)" alt="Rashedul Alam Portrait 4" loading="lazy">  
-                    <img src="https://i.postimg.cc/Pr2Xpv26/IMG-20260116-WA0014.jpg" onclick="changeImg(4)" alt="Rashedul Alam Portrait 5" loading="lazy">  
-                </div>  
-            </div>  
-        </div>  
-  
-        <div class="glass-panel bento-card bento-large" style="border-top: 4px solid var(--accent-solid);">  
-            <div>  
-                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 25px; flex-wrap: wrap; gap: 15px;">  
-                    <span style="color: var(--accent-solid); font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;"><i class="fas fa-crown" style="margin-right: 8px;"></i> Current Directive</span>  
+        <div class="hero-content-wrapper">  
+            <div class="hero-grid">  
+                <div style="overflow: hidden; max-width: 100%;">  
+                    <div class="status-badge fade-element" data-aos="fade-down" data-aos-delay="100"><span class="pulse-dot"></span> Available for Consulting</div>
                     
-                    <!-- INSERT YOUR CV LINK HERE -->
-                    <a href="#" target="_blank" class="btn-vex-glass glass-panel magnetic" style="padding: 10px 20px; font-size: 0.85rem;"><i class="fas fa-file-pdf"></i> Get Resume</a>
-                </div>  
-                <h3 style="font-size: 2.6rem; font-weight: 700; color: var(--text-main); line-height: 1.2; margin-bottom: 10px;">Teaching Assistant</h3>  
-                <p style="color: var(--text-sub); font-size: 1.15rem; margin-bottom: 35px;">Department of Marketing — Daffodil International University</p>  
-                  
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; border-top: 1px solid var(--glass-border); padding-top: 35px;">  
-                    <div>  
-                        <h4 style="font-size: 0.9rem; text-transform: uppercase; color: var(--accent-solid); letter-spacing: 1px; margin-bottom: 10px;">Club Leadership</h4>  
-                        <p style="color: var(--text-sub); font-size: 1.05rem;">Management Information Secretary<br><span style="color: var(--text-main); font-weight: 600;">Skill Up Club</span></p>  
-                    </div>  
-                    <div>  
-                        <h4 style="font-size: 0.9rem; text-transform: uppercase; color: var(--accent-solid); letter-spacing: 1px; margin-bottom: 10px;">Venture Asset</h4>  
-                        <p style="color: var(--text-sub); font-size: 1.05rem;">CEO & Founder<br><span style="color: var(--text-main); font-weight: 600;">Beloved.com</span></p>  
+                    <!-- Title Generation Engine Container -->
+                    <h1 id="animated-heading" class="hero-heading"></h1>  
+                    
+                    <p id="fade-subheading" class="hero-sub fade-element" data-aos="fade-up" data-aos-delay="300">  
+                        Business Strategist & Teaching Assistant. We back visionaries and craft operational ventures that define what comes next.  
+                    </p>  
+                    <div id="fade-buttons" class="hero-buttons fade-element" data-aos="fade-up" data-aos-delay="500">  
+                        <a href="#projects" class="btn-vex-solid magnetic">View Ventures <i class="fas fa-arrow-right"></i></a>  
                     </div>  
                 </div>  
-            </div>  
-              
-            <div style="margin-top: 40px; background: rgba(0,0,0,0.1); border: 1px solid var(--glass-border); padding: 24px; border-radius: 16px; font-size: 1rem; color: var(--text-sub); backdrop-filter: blur(10px); line-height: 1.7;">  
-                <i class="fas fa-info-circle" style="color: var(--accent-solid); margin-right: 10px;"></i> Executing audience validation matrices, systemic brand expansion strategies, and collaborative stakeholder integration parameters across collegiate and corporate domains.  
+                <div id="fade-tag" class="fade-element" data-aos="fade-left" data-aos-delay="600">  
+                    <a href="#skills" class="hero-right-tag glass-panel magnetic">Strategy • Leadership • Execution</a>  
+                </div>  
             </div>  
         </div>  
-    </div>  
-</section>  
-
-<section id="projects" data-aos="fade-up">
-    <div class="section-header">  
-        <p class="section-subtitle">Venture Portfolio</p>  
-        <h2 class="section-title">Featured <span>Projects</span></h2>  
-    </div> 
-    
-    <div class="projects-grid">
-        <div class="glass-panel project-card magnetic">
-            <div class="project-icon"><i class="fas fa-briefcase"></i></div>
-            <h3 class="project-title">Beloved.com</h3>
-            <p class="project-desc">E-commerce and brand strategy platform designed to streamline retail logistics and elevate customer retention.</p>
-            <div class="project-tech">
-                <span class="tech-tag">Brand Strategy</span>
-                <span class="tech-tag">E-Commerce</span>
-                <span class="tech-tag">Operations</span>
-            </div>
-            <a href="#" class="project-link">View Case Study <i class="fas fa-arrow-right"></i></a>
-        </div>
-
-        <div class="glass-panel project-card magnetic">
-            <div class="project-icon"><i class="fas fa-users"></i></div>
-            <h3 class="project-title">Skill Up Hub</h3>
-            <p class="project-desc">Developed an integrated management information system for the university club to track member engagement and event analytics.</p>
-            <div class="project-tech">
-                <span class="tech-tag">Management</span>
-                <span class="tech-tag">Data Matrix</span>
-                <span class="tech-tag">Leadership</span>
-            </div>
-            <a href="#" class="project-link">View Details <i class="fas fa-arrow-right"></i></a>
-        </div>
-
-        <div class="glass-panel project-card magnetic">
-            <div class="project-icon"><i class="fas fa-video"></i></div>
-            <h3 class="project-title">Media Architecture</h3>
-            <p class="project-desc">A premium corporate video production and media strategy toolkit utilized by 10+ local enterprises for brand positioning.</p>
-            <div class="project-tech">
-                <span class="tech-tag">Video Production</span>
-                <span class="tech-tag">Graphic UI</span>
-                <span class="tech-tag">Media Design</span>
-            </div>
-            <a href="#" class="project-link">Watch Reel <i class="fas fa-arrow-right"></i></a>
-        </div>
-    </div>
-</section>
-  
-<section id="experience" data-aos="fade-up">  
-    <div class="section-header">  
-        <p class="section-subtitle">Timeline Matrix</p>  
-        <h2 class="section-title">Experience & <span>Qualifications</span></h2>  
-    </div>
-    
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 60px;">
-        <div class="glass-panel" style="padding: 40px;">
-            <h3 style="font-size: 1.5rem; color: var(--text-main); margin-bottom: 30px; font-weight: 700;"><i class="fas fa-briefcase" style="color: var(--accent-solid); margin-right: 10px;"></i> Professional Journey</h3>
-            <div class="timeline-container">
-                <div class="timeline-box">
-                    <span class="timeline-date">Present</span>
-                    <h4 class="timeline-title">Teaching Assistant</h4>
-                    <div class="timeline-org">Dept of Marketing, DIU</div>
-                    <p class="timeline-desc">Assisting professors in executing curriculum, managing student relations, and facilitating academic operations.</p>
-                </div>
-                <div class="timeline-box">
-                    <span class="timeline-date">Current</span>
-                    <h4 class="timeline-title">CEO & Founder</h4>
-                    <div class="timeline-org">Beloved.com</div>
-                    <p class="timeline-desc">Leading corporate vision, operational scaling, and brand strategy.</p>
-                </div>
-                <div class="timeline-box">
-                    <span class="timeline-date">Past Engagement</span>
-                    <h4 class="timeline-title">Senior Marshal</h4>
-                    <div class="timeline-org">Oitijjer Haat Cultural Forum</div>
-                    <p class="timeline-desc">Organized large-scale cultural events and managed corporate liaison activities.</p>
-                </div>
-            </div>
-        </div>
-
-        <div style="display: flex; flex-direction: column; gap: 24px;">
-            <!-- Updated CGPA Box Style -->
-            <div class="glass-panel bento-card" style="padding: 30px; border-top: 4px solid var(--accent-solid);">  
-                <div>  
-                    <span style="color: var(--text-muted); font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Current Academic Standing</span>  
-                    <h4 style="font-size: 3rem; font-weight: 800; color: var(--text-main); margin-top: 10px; line-height: 1;">3.50 <span style="font-size: 1.2rem; color: var(--text-sub); font-weight: 500;">/ CGPA</span></h4>  
+    </section>   
+      
+    <section id="about" data-aos="fade-up">  
+        <div class="section-header">  
+            <p class="section-subtitle">Operational Matrix</p>  
+            <h2 class="section-title">Executive <span>Overview</span></h2>  
+        </div>  
+          
+        <div class="bento-container">  
+            <div class="glass-panel bento-card bento-small" data-aos="zoom-in" data-aos-delay="100">  
+                <div class="profile-wrapper">  
+                    <div class="avatar-frame">  
+                        <img id="mainImg" src="https://i.postimg.cc/fTxd6CWs/IMG-20260116-WA0005.jpg" alt="Md. Rashedul Alam Headshot" loading="lazy">  
+                    </div>  
+                    <div class="carousel-nav" id="thumbBar">  
+                        <img src="https://i.postimg.cc/fTxd6CWs/IMG-20260116-WA0005.jpg" class="active" onclick="changeImg(0)" alt="Rashedul Alam Portrait 1" loading="lazy">  
+                        <img src="https://i.postimg.cc/J0jyC7Lf/IMG-20260116-WA0007.jpg" onclick="changeImg(1)" alt="Rashedul Alam Portrait 2" loading="lazy">  
+                        <img src="https://i.postimg.cc/sf51X2kn/IMG-20260116-WA0009.jpg" onclick="changeImg(2)" alt="Rashedul Alam Portrait 3" loading="lazy">  
+                        <img src="https://i.postimg.cc/9f4QjXPP/IMG-20260116-WA0011.jpg" onclick="changeImg(3)" alt="Rashedul Alam Portrait 4" loading="lazy">  
+                        <img src="https://i.postimg.cc/Pr2Xpv26/IMG-20260116-WA0014.jpg" onclick="changeImg(4)" alt="Rashedul Alam Portrait 5" loading="lazy">  
+                    </div>  
                 </div>  
-                <p style="font-size: 1rem; color: var(--text-sub); border-top: 1px solid var(--glass-border); padding-top: 20px; margin-top: 20px;">Undergraduate track at Daffodil International University</p>  
-            </div>
-
-            <div class="glass-panel bento-card" style="padding: 30px;">  
+            </div>  
+      
+            <div class="glass-panel bento-card bento-large" style="border-top: 4px solid var(--accent-solid);" data-aos="fade-left" data-aos-delay="200">  
                 <div>  
-                    <span style="color: var(--accent-solid); font-weight: 700; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; display: block; margin-bottom: 12px;"><i class="fas fa-certificate" style="margin-right: 8px;"></i> Certification</span>  
-                    <h3 style="font-size: 1.3rem; font-weight: 600; color: var(--text-main); margin-bottom: 8px; line-height: 1.3;">Google Digital Marketing</h3>  
-                    <p style="color: var(--text-sub); font-size: 0.95rem; line-height: 1.5;">Foundations of Digital Marketing & E-commerce</p>  
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; flex-wrap: wrap; gap: 15px;">  
+                        <span style="color: var(--accent-solid); font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;"><i class="fas fa-crown" style="margin-right: 8px;"></i> Current Directive</span>  
+                        
+                        <!-- NEW CUSTOM RESUME PILL BUTTON -->
+                        <!-- REPLACE "YOUR_RESUME_FILE.pdf" WITH YOUR ACTUAL PDF LINK -->
+                        <a href="YOUR_RESUME_FILE.pdf" download="Md_Rashedul_Alam_Resume.pdf" target="_blank" class="resume-pill-btn magnetic">
+                            <i class="fas fa-file-pdf"></i> Get Resume
+                        </a>
+                    </div>  
+                    <h3 style="font-size: 2.6rem; font-weight: 700; color: var(--text-main); line-height: 1.2; margin-bottom: 10px;">Teaching Assistant</h3>  
+                    <p style="color: var(--text-sub); font-size: 1.15rem; margin-bottom: 35px;">Department of Marketing — <a href="https://daffodilvarsity.edu.bd/" target="_blank" rel="noopener noreferrer" style="color: var(--accent-solid); text-decoration: underline;">Daffodil International University</a></p>  
+                      
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; border-top: 1px solid var(--glass-border); padding-top: 35px;">  
+                        <div>  
+                            <h4 style="font-size: 0.9rem; text-transform: uppercase; color: var(--accent-solid); letter-spacing: 1px; margin-bottom: 10px;">Club Leadership</h4>  
+                            <p style="color: var(--text-sub); font-size: 1.05rem;">Management Information Secretary<br><span style="color: var(--text-main); font-weight: 600;">Skill Up Club</span></p>  
+                        </div>  
+                        <div>  
+                            <h4 style="font-size: 0.9rem; text-transform: uppercase; color: var(--accent-solid); letter-spacing: 1px; margin-bottom: 10px;">Venture Asset</h4>  
+                            <p style="color: var(--text-sub); font-size: 1.05rem;">CEO & Founder<br><span style="color: var(--text-main); font-weight: 600;">Beloved.com</span></p>  
+                        </div>  
+                    </div>  
                 </div>  
-            </div>
-
-            <div class="glass-panel bento-card" style="padding: 30px;">  
-                <div>  
-                    <span style="color: var(--accent-solid); font-weight: 700; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; display: block; margin-bottom: 12px;"><i class="fas fa-graduation-cap" style="margin-right: 8px;"></i> HSC Foundation Matrix</span>  
-                    <h3 style="font-size: 1.3rem; font-weight: 600; color: var(--text-main); margin-bottom: 8px;">Humanities (GPA 5.00)</h3>  
-                    <p style="color: var(--text-sub); font-size: 0.95rem;">BCIC College, Mirpur</p>  
+                  
+                <div style="margin-top: 40px; background: rgba(0,0,0,0.1); border: 1px solid var(--glass-border); padding: 24px; border-radius: 16px; font-size: 1rem; color: var(--text-sub); backdrop-filter: blur(10px); line-height: 1.7;">  
+                    <i class="fas fa-info-circle" style="color: var(--accent-solid); margin-right: 10px;"></i> Executing audience validation matrices, systemic brand expansion strategies, and collaborative stakeholder integration parameters across collegiate and corporate domains.  
                 </div>  
-            </div>
-        </div>
-    </div>
-</section>  
-  
-<section id="skills" data-aos="zoom-in">  
-    <div class="section-header center">  
-        <p class="section-subtitle">Execution Capabilities</p>  
-        <h2 class="section-title">Core <span>Competence</span></h2>  
-    </div>  
-    <div class="skills-grid">  
-        <div class="skill-pill magnetic">Strategic Brand Management</div>  
-        <div class="skill-pill magnetic">AI Automation Infrastructure</div>  
-        <div class="skill-pill magnetic">Corporate Communications</div>  
-        <div class="skill-pill magnetic">Professional Video Production</div>  
-        <div class="skill-pill magnetic">Graphic Architecture</div>  
-        <div class="skill-pill magnetic">Data Matrix & Analytics</div>  
-        <div class="skill-pill magnetic">Public Keynote Speaking</div>  
-    </div>  
-</section>   
-
-<section id="testimonials" data-aos="fade-up">
-    <div class="section-header">  
-        <p class="section-subtitle">Endorsements</p>  
-        <h2 class="section-title">Professional <span>Trust</span></h2>  
-    </div> 
+            </div>  
+        </div>  
+    </section>  
     
-    <div class="testimonials-grid">
-        <div class="glass-panel testimonial-card">
-            <i class="fas fa-quote-left quote-icon"></i>
-            <p class="testimonial-text">"Rashedul brings an unmatched level of strategic clarity and operational focus. His work on our brand expansion frameworks completely changed our trajectory."</p>
-            <div class="testimonial-author">
-                <span class="author-name">Dr. Hasan Mahmud</span>
-                <span class="author-role">Professor, DIU</span>
+    <section id="projects" data-aos="fade-up">
+        <div class="section-header">  
+            <p class="section-subtitle">Venture Portfolio</p>  
+            <h2 class="section-title">Featured <span>Projects</span></h2>  
+        </div> 
+        
+        <div class="projects-grid">
+            <div class="glass-panel project-card magnetic" data-aos="fade-up" data-aos-delay="100">
+                <div class="project-icon"><i class="fas fa-briefcase"></i></div>
+                <h3 class="project-title">Beloved.com</h3>
+                <p class="project-desc">E-commerce and brand strategy platform designed to streamline retail logistics and elevate customer retention.</p>
+                <div class="project-tech">
+                    <span class="tech-tag">Brand Strategy</span>
+                    <span class="tech-tag">E-Commerce</span>
+                    <span class="tech-tag">Operations</span>
+                </div>
+                <a href="#" class="project-link">View Case Study <i class="fas fa-arrow-right"></i></a>
+            </div>
+    
+            <div class="glass-panel project-card magnetic" data-aos="fade-up" data-aos-delay="200">
+                <div class="project-icon"><i class="fas fa-users"></i></div>
+                <h3 class="project-title">Skill Up Hub</h3>
+                <p class="project-desc">Developed an integrated management information system for the university club to track member engagement and event analytics.</p>
+                <div class="project-tech">
+                    <span class="tech-tag">Management</span>
+                    <span class="tech-tag">Data Matrix</span>
+                    <span class="tech-tag">Leadership</span>
+                </div>
+                <a href="#" class="project-link">View Details <i class="fas fa-arrow-right"></i></a>
+            </div>
+    
+            <div class="glass-panel project-card magnetic" data-aos="fade-up" data-aos-delay="300">
+                <div class="project-icon"><i class="fas fa-video"></i></div>
+                <h3 class="project-title">Media Architecture</h3>
+                <p class="project-desc">A premium corporate video production and media strategy toolkit utilized by 10+ local enterprises for brand positioning.</p>
+                <div class="project-tech">
+                    <span class="tech-tag">Video Production</span>
+                    <span class="tech-tag">Graphic UI</span>
+                    <span class="tech-tag">Media Design</span>
+                </div>
+                <a href="#" class="project-link">Watch Reel <i class="fas fa-arrow-right"></i></a>
             </div>
         </div>
-        <div class="glass-panel testimonial-card">
-            <i class="fas fa-quote-left quote-icon"></i>
-            <p class="testimonial-text">"An exceptional leader at the Skill Up Club. He designs systems that work effortlessly, bridging the gap between student engagement and real-world corporate expectations."</p>
-            <div class="testimonial-author">
-                <span class="author-name">Ayesha Rahman</span>
-                <span class="author-role">Club President, Skill Up</span>
+    </section>
+      
+    <section id="experience" data-aos="fade-up">  
+        <div class="section-header">  
+            <p class="section-subtitle">Timeline Matrix</p>  
+            <h2 class="section-title">Resume & <span>Experience</span></h2>  
+        </div>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 60px;">
+            <div class="glass-panel" style="padding: 40px;" data-aos="fade-right">
+                <h3 style="font-size: 1.5rem; color: var(--text-main); margin-bottom: 30px; font-weight: 700;"><i class="fas fa-briefcase" style="color: var(--accent-solid); margin-right: 10px;"></i> Professional Journey</h3>
+                <div class="timeline-container">
+                    <div class="timeline-box">
+                        <span class="timeline-date">Present</span>
+                        <h4 class="timeline-title">Teaching Assistant</h4>
+                        <div class="timeline-org"><a href="https://daffodilvarsity.edu.bd/" target="_blank" rel="noopener noreferrer" style="color: var(--text-sub); text-decoration: underline;">Daffodil International University</a></div>
+                        <p class="timeline-desc">Assisting professors in executing curriculum, managing student relations, and facilitating academic operations.</p>
+                    </div>
+                    <div class="timeline-box">
+                        <span class="timeline-date">Current</span>
+                        <h4 class="timeline-title">CEO & Founder</h4>
+                        <div class="timeline-org">Beloved.com</div>
+                        <p class="timeline-desc">Leading corporate vision, operational scaling, and brand strategy.</p>
+                    </div>
+                    <div class="timeline-box">
+                        <span class="timeline-date">2025 Highlights</span>
+                        <h4 class="timeline-title">Volunteer & Organizer</h4>
+                        <div class="timeline-org">Various Institutional Forums</div>
+                        <p class="timeline-desc">Organized the AOLY-Camp 2025, Career Talk Seminar with BD Calling IT Ltd, and Spring Orientation Program.</p>
+                    </div>
+                </div>
+            </div>
+    
+            <div style="display: flex; flex-direction: column; gap: 24px;" data-aos="fade-left" data-aos-delay="200">
+                <div class="glass-panel bento-card" style="padding: 30px; border-top: 4px solid var(--accent-solid);">  
+                    <div>  
+                        <span style="color: var(--text-muted); font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Current Academic Standing</span>  
+                        <h4 style="font-size: 3rem; font-weight: 800; color: var(--text-main); margin-top: 10px; line-height: 1;">3.50 <span style="font-size: 1.2rem; color: var(--text-sub); font-weight: 500;">/ CGPA</span></h4>  
+                    </div>  
+                    <p style="font-size: 1rem; color: var(--text-sub); border-top: 1px solid var(--glass-border); padding-top: 20px; margin-top: 20px;">BBA Major track at <a href="https://daffodilvarsity.edu.bd/" target="_blank" rel="noopener noreferrer" style="color: var(--text-sub); text-decoration: underline;">Daffodil International University</a></p>  
+                </div>
+    
+                <div class="glass-panel bento-card" style="padding: 30px;">  
+                    <div>  
+                        <span style="color: var(--accent-solid); font-weight: 700; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; display: block; margin-bottom: 12px;"><i class="fas fa-certificate" style="margin-right: 8px;"></i> Certification</span>  
+                        <h3 style="font-size: 1.3rem; font-weight: 600; color: var(--text-main); margin-bottom: 8px; line-height: 1.3;">Google Digital Marketing</h3>  
+                        <p style="color: var(--text-sub); font-size: 0.95rem; line-height: 1.5;">Foundations of Digital Marketing & E-commerce</p>  
+                    </div>  
+                </div>
             </div>
         </div>
-        <div class="glass-panel testimonial-card">
-            <i class="fas fa-quote-left quote-icon"></i>
-            <p class="testimonial-text">"His digital marketing insights and video production capabilities elevated our enterprise media strategy immediately. Highly recommend for any execution deployment."</p>
-            <div class="testimonial-author">
-                <span class="author-name">Kamrul Islam</span>
-                <span class="author-role">Director, TechNova</span>
+    </section>  
+      
+    <section id="skills" data-aos="zoom-in">  
+        <div class="section-header center">  
+            <p class="section-subtitle">Execution Capabilities</p>  
+            <h2 class="section-title">Core <span>Competence</span></h2>  
+        </div>  
+        <div class="skills-grid">  
+            <div class="skill-pill magnetic">Strategic Brand Management</div>  
+            <div class="skill-pill magnetic">AI Automation</div>  
+            <div class="skill-pill magnetic">Corporate Communications</div>  
+            <div class="skill-pill magnetic">Professional Video Production</div>  
+            <div class="skill-pill magnetic">Graphic Design</div>  
+            <div class="skill-pill magnetic">Data & Analytics</div>  
+            <div class="skill-pill magnetic">Public Speaking</div>  
+        </div>  
+    </section>   
+    
+    <section id="trust" data-aos="fade-up">
+        <div class="section-header">  
+            <p class="section-subtitle">Academic Endorsements</p>  
+            <h2 class="section-title">Professional <span>Trust</span></h2>  
+        </div> 
+        
+        <div class="testimonials-grid">
+            <!-- Faculty Member 1 -->
+            <div class="glass-panel testimonial-card magnetic" data-aos="fade-up" data-aos-delay="100">
+                <i class="fas fa-user-tie quote-icon"></i>
+                <div class="testimonial-text">
+                    <h3 style="font-size: 1.2rem; font-weight: 700; color: var(--text-main); margin-bottom: 5px;">Dr. Dewan Golam Yazdani Showrav</h3>
+                    <p style="font-size: 0.95rem; color: var(--text-sub); font-weight: 500;">Associate Professor and Head<br>Department of Marketing<br>Faculty of Business & Entrepreneurship</p>
+                    <p style="font-size: 0.95rem; margin-top: 10px; font-weight: 600;"><a href="https://daffodilvarsity.edu.bd/" target="_blank" rel="noopener noreferrer" style="color: var(--accent-solid); text-decoration: underline;">Daffodil International University</a></p>
+                </div>
+                <div style="margin-top: auto; padding-top: 20px; border-top: 1px solid var(--glass-border); display: flex; flex-direction: column; gap: 8px; position: relative; z-index: 10; pointer-events: auto;">
+                    <a href="mailto:headmkt@daffodilvarsity.edu.bd" target="_blank" rel="noopener noreferrer" class="project-link" style="font-size: 0.85rem;"><i class="fas fa-envelope"></i> headmkt@daffodilvarsity.edu.bd</a>
+                    <a href="tel:+8801671080089" class="project-link" style="font-size: 0.85rem;"><i class="fas fa-phone-alt"></i> +880-1671-080089</a>
+                </div>
             </div>
-        </div>
-    </div>
-</section>
-  
-<section id="contact" data-aos="fade-up">  
-    <div class="section-header center">  
-        <p class="section-subtitle">Initiate Protocol</p>  
-        <h2 class="section-title">Open to <span>Opportunities</span></h2>  
-        <p style="color: var(--text-sub); margin-top: 20px; font-size: 1.1rem; max-width: 600px; margin-inline: auto;">Retained for operational execution deployments, institutional brand strategy consulting, and targeted enterprise media design.</p>
-    </div> 
 
-    <div class="contact-wrapper">
-        <div class="contact-info">
-            <div class="glass-panel contact-item" style="padding: 24px; border-radius: 20px;">
-                <div class="contact-icon"><i class="fas fa-envelope"></i></div>
-                <div class="contact-detail">
-                    <h4>Direct Email</h4>
-                    <p>imdrashedulalam@gmail.com</p>
+            <!-- Faculty Member 2 -->
+            <div class="glass-panel testimonial-card magnetic" data-aos="fade-up" data-aos-delay="200">
+                <i class="fas fa-user-tie quote-icon"></i>
+                <div class="testimonial-text">
+                    <h3 style="font-size: 1.2rem; font-weight: 700; color: var(--text-main); margin-bottom: 5px;">Professor Dr. Mohammad Rokibul Kabir</h3>
+                    <p style="font-size: 0.95rem; color: var(--text-sub); font-weight: 500;">Dean<br>Faculty of Business & Entrepreneurship</p>
+                    <p style="font-size: 0.95rem; margin-top: 10px; font-weight: 600;"><a href="https://daffodilvarsity.edu.bd/" target="_blank" rel="noopener noreferrer" style="color: var(--accent-solid); text-decoration: underline;">Daffodil International University</a></p>
+                </div>
+                <div style="margin-top: auto; padding-top: 20px; border-top: 1px solid var(--glass-border); display: flex; flex-direction: column; gap: 8px; position: relative; z-index: 10; pointer-events: auto;">
+                    <a href="mailto:headda@daffodilvarsity.edu.bd" target="_blank" rel="noopener noreferrer" class="project-link" style="font-size: 0.85rem;"><i class="fas fa-envelope"></i> headda@daffodilvarsity.edu.bd</a>
+                    <a href="tel:+8801897644941" class="project-link" style="font-size: 0.85rem;"><i class="fas fa-phone-alt"></i> +880-1897-644941</a>
                 </div>
             </div>
-            <div class="glass-panel contact-item" style="padding: 24px; border-radius: 20px;">
-                <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
-                <div class="contact-detail">
-                    <h4>Secure Line</h4>
-                    <p>+880 1837 569 796</p>
+
+            <!-- Faculty Member 3 -->
+            <div class="glass-panel testimonial-card magnetic" data-aos="fade-up" data-aos-delay="300">
+                <i class="fas fa-user-tie quote-icon"></i>
+                <div class="testimonial-text">
+                    <h3 style="font-size: 1.2rem; font-weight: 700; color: var(--text-main); margin-bottom: 5px;">Dr. Md. Azizur Rahman</h3>
+                    <p style="font-size: 0.95rem; color: var(--text-sub); font-weight: 500;">Associate Professor and Head<br>Department of Business Administration<br>Faculty of Business & Entrepreneurship</p>
+                    <p style="font-size: 0.95rem; margin-top: 10px; font-weight: 600;"><a href="https://daffodilvarsity.edu.bd/" target="_blank" rel="noopener noreferrer" style="color: var(--accent-solid); text-decoration: underline;">Daffodil International University</a></p>
                 </div>
-            </div>
-            <div class="glass-panel contact-item" style="padding: 24px; border-radius: 20px;">
-                <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
-                <div class="contact-detail">
-                    <h4>Base of Operations</h4>
-                    <p>Dhaka, Bangladesh</p>
+                <div style="margin-top: auto; padding-top: 20px; border-top: 1px solid var(--glass-border); display: flex; flex-direction: column; gap: 8px; position: relative; z-index: 10; pointer-events: auto;">
+                    <a href="mailto:azizur.bba@diu.edu.bd" target="_blank" rel="noopener noreferrer" class="project-link" style="font-size: 0.85rem;"><i class="fas fa-envelope"></i> azizur.bba@diu.edu.bd</a>
+                    <a href="tel:+8801847334910" class="project-link" style="font-size: 0.85rem;"><i class="fas fa-phone-alt"></i> +880-1847-334910</a>
                 </div>
             </div>
         </div>
-
-        <!-- Updated Working Contact Form via Web3Forms -->
-        <form class="glass-panel contact-form" action="https://api.web3forms.com/submit" method="POST">
-            <!-- REPLACE THIS VALUE WITH YOUR FREE API KEY FROM WEB3FORMS.COM -->
-            <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
-            
-            <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 10px;">Send a Secure Message</h3>
-            <div class="form-group">
-                <input type="text" name="Name" class="glass-input" placeholder="Your Full Name" required>
+    </section>
+      
+    <section id="contact" data-aos="fade-up">  
+        <div class="section-header center">  
+            <p class="section-subtitle">Initiate Protocol</p>  
+            <h2 class="section-title">Open to <span>Opportunities</span></h2>  
+            <p style="color: var(--text-sub); margin-top: 20px; font-size: 1.1rem; max-width: 600px; margin-inline: auto;">Retained for operational execution deployments, institutional brand strategy consulting, and targeted enterprise media design.</p>
+        </div> 
+    
+        <div class="contact-wrapper">
+            <div class="contact-info" data-aos="fade-right" data-aos-delay="100">
+                <div class="glass-panel contact-item" style="padding: 24px; border-radius: 20px;">
+                    <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                    <div class="contact-detail">
+                        <h4>Direct Email</h4>
+                        <p>imdrashedulalam@gmail.com</p>
+                    </div>
+                </div>
+                <div class="glass-panel contact-item" style="padding: 24px; border-radius: 20px;">
+                    <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+                    <div class="contact-detail">
+                        <h4>Secure Line</h4>
+                        <p>+880 1837 569 796</p>
+                    </div>
+                </div>
+                <div class="glass-panel contact-item" style="padding: 24px; border-radius: 20px;">
+                    <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                    <div class="contact-detail">
+                        <h4>Base of Operations</h4>
+                        <p>Dhaka, Bangladesh</p>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <input type="email" name="Email" class="glass-input" placeholder="Your Email Address" required>
-            </div>
-            <div class="form-group">
-                <textarea name="Message" class="glass-input" rows="5" placeholder="State your inquiry or proposition..." required></textarea>
-            </div>
-            <button type="submit" class="btn-vex-solid magnetic">Initiate Transmission <i class="fas fa-paper-plane"></i></button>
-        </form>
-    </div>
-</section>  
+    
+            <form class="glass-panel contact-form" action="https://api.web3forms.com/submit" method="POST" data-aos="fade-left" data-aos-delay="200">
+                <!-- REPLACE THIS VALUE WITH YOUR FREE API KEY FROM WEB3FORMS.COM -->
+                <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+                
+                <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 10px;">Send a Secure Message</h3>
+                <div class="form-group">
+                    <input type="text" name="Name" class="glass-input" placeholder="Your Full Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" name="Email" class="glass-input" placeholder="Your Email Address" required>
+                </div>
+                <div class="form-group">
+                    <textarea name="Message" class="glass-input" rows="5" placeholder="State your inquiry or proposition..." required></textarea>
+                </div>
+                <button type="submit" class="btn-vex-solid magnetic">Send Message <i class="fas fa-paper-plane"></i></button>
+            </form>
+        </div>
+    </section>  
+</main>
   
 <footer>  
     <div class="social-links">
@@ -752,15 +875,23 @@
         </div>
     </div>
 </footer>  
+
+<!-- Mobile FAB (Scroll to top) -->
+<button id="mobile-fab" class="mobile-fab" aria-label="Scroll to Top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+    <i class="fas fa-arrow-up"></i>
+</button>
   
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>  
 <script>  
+    // Smooth Animation Engine Init
     AOS.init({  
         duration: 800,  
         once: true,
-        offset: 50
+        offset: 50,
+        easing: 'ease-out-cubic'
     });  
   
+    // Theme Engine
     function setTheme(theme) {  
         document.body.setAttribute('data-theme', theme);  
           
@@ -781,16 +912,33 @@
         setTheme(nativeTheme);
     })();
   
+    // Fixed Hero Text Stagger Animation (Keeps words cleanly grouped)
     const textSignature = "Md. Rashedul Alam";  
     const headerElement = document.getElementById('animated-heading');  
-      
-    Array.from(textSignature).forEach((char, idx) => {  
-        const spanNode = document.createElement('span');  
-        spanNode.className = 'char-span';  
-        spanNode.textContent = char === " " ? "\u00A0" : char; 
-        spanNode.style.transitionDelay = `${idx * 40}ms`;  
-        headerElement.appendChild(spanNode);  
-    });  
+    
+    if(headerElement) {
+        const words = textSignature.split(' ');
+        words.forEach((word, wIdx) => {
+            const wordSpan = document.createElement('span');
+            wordSpan.style.display = 'inline-block';
+            wordSpan.style.whiteSpace = 'nowrap';
+            
+            Array.from(word).forEach((char, cIdx) => {
+                const spanNode = document.createElement('span');
+                spanNode.className = 'char-span';
+                spanNode.textContent = char;
+                spanNode.style.transitionDelay = `${(wIdx * 5 + cIdx) * 40}ms`;
+                wordSpan.appendChild(spanNode);
+            });
+            
+            headerElement.appendChild(wordSpan);
+            
+            if (wIdx < words.length - 1) {
+                // Allows natural spacing on desktop
+                headerElement.appendChild(document.createTextNode(' '));
+            }
+        });
+    }
   
     window.addEventListener('DOMContentLoaded', () => {  
         setTimeout(() => {  
@@ -805,6 +953,7 @@
         }, 150);  
     });  
   
+    // Fluid Profile Image Carousel
     const imageMatrix = [  
         "https://i.postimg.cc/fTxd6CWs/IMG-20260116-WA0005.jpg",  
         "https://i.postimg.cc/J0jyC7Lf/IMG-20260116-WA0007.jpg",  
@@ -828,93 +977,58 @@
         nodes.forEach(node => node.classList.remove('active'));  
         nodes[index].classList.add('active');  
     }  
-  
-    const trackerNode = document.getElementById('moving-football');  
+
+    // Mobile Menu & FAB Logic
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+    const mobileFab = document.getElementById('mobile-fab');
+
+    function toggleMobileMenu() {
+        mobileMenu.classList.toggle('active');
+        const icon = hamburgerBtn.querySelector('i');
+        
+        if(mobileMenu.classList.contains('active')) {
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-times');
+            document.body.style.overflow = 'hidden'; 
+        } else {
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+            document.body.style.overflow = '';
+        }
+    }
+
+    if (hamburgerBtn) {
+        hamburgerBtn.addEventListener('click', toggleMobileMenu);
+    }
+
+    mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            if(mobileMenu.classList.contains('active')) toggleMobileMenu();
+        });
+    });
+
+    // Tracking Progress Bar and Mobile FAB
     const metricLine = document.getElementById('scroll-progress');  
-    const controlWrapper = document.querySelector('.scroll-control-container');  
-      
-    let isDragging = false;  
-  
-    window.addEventListener('scroll', () => {  
-        if (isDragging) return; 
-          
+    
+    window.addEventListener('scroll', () => {
         const scrollDelta = window.scrollY;  
         const totalHeight = document.documentElement.scrollHeight - window.innerHeight;  
         const layoutPercentage = totalHeight > 0 ? (scrollDelta / totalHeight) * 100 : 0;  
   
-        metricLine.style.width = `${layoutPercentage}%`;  
-  
-        if (controlWrapper && window.innerWidth > 768) {  
-            const boundaryHeight = controlWrapper.clientHeight - 60;   
-            const dynamicOffset = 30 + (layoutPercentage / 100) * boundaryHeight;  
-            trackerNode.style.top = `${dynamicOffset}px`;  
-            trackerNode.style.transform = `translate(-50%, -50%) rotate(${scrollDelta * 0.4}deg)`;  
-        }  
-    });  
-  
-    function processDragAction(clientY) {  
-        if(window.innerWidth <= 768) return; 
+        if (metricLine) metricLine.style.width = `${layoutPercentage}%`;  
 
-        const containerRect = controlWrapper.getBoundingClientRect();  
-        const basePadding = 30;  
-        const usefulHeight = containerRect.height - 60;  
-          
-        let localizedY = clientY - containerRect.top - basePadding;  
-        localizedY = Math.max(0, Math.min(localizedY, usefulHeight));  
-          
-        const activePercentage = localizedY / usefulHeight;  
-        const maximumScrollValue = document.documentElement.scrollHeight - window.innerHeight;  
-          
-        window.scrollTo({ top: activePercentage * maximumScrollValue, behavior: 'instant' });  
-          
-        metricLine.style.width = `${activePercentage * 100}%`;  
-        trackerNode.style.top = `${basePadding + localizedY}px`;  
-        trackerNode.style.transform = `translate(-50%, -50%) rotate(${window.scrollY * 0.4}deg)`;  
-    }  
-  
-    trackerNode.addEventListener('mousedown', (e) => {  
-        e.preventDefault();  
-        isDragging = true;  
-        document.body.style.userSelect = 'none';  
-        document.documentElement.style.scrollBehavior = 'auto'; 
-    });  
-
-    // NEW: Touch Support for Football Drag
-    trackerNode.addEventListener('touchstart', (e) => {
-        isDragging = true;
-        document.body.style.userSelect = 'none';
-        document.documentElement.style.scrollBehavior = 'auto';
-    }, {passive: true});
-  
-    window.addEventListener('mousemove', (e) => {  
-        if (!isDragging) return;  
-        processDragAction(e.clientY);  
-    });  
-
-    window.addEventListener('touchmove', (e) => {
-        if (!isDragging) return;
-        e.preventDefault(); 
-        processDragAction(e.touches[0].clientY);
-    }, {passive: false});
-  
-    window.addEventListener('mouseup', () => {  
-        if (isDragging) {  
-            isDragging = false;  
-            document.body.style.userSelect = '';  
-            document.documentElement.style.scrollBehavior = 'smooth'; 
-        }  
-    });  
-
-    window.addEventListener('touchend', () => {
-        if (isDragging) {
-            isDragging = false;
-            document.body.style.userSelect = '';
-            document.documentElement.style.scrollBehavior = 'smooth';
+        if(mobileFab) {
+            if(window.scrollY > 400 && window.innerWidth <= 768) {
+                mobileFab.classList.add('visible');
+            } else {
+                mobileFab.classList.remove('visible');
+            }
         }
     });
   
-    window.dispatchEvent(new Event('scroll'));  
-  
+    // Mouse Interaction "Magnetic" Effect 
     if (window.matchMedia("(pointer: fine)").matches) {
         document.querySelectorAll('.magnetic').forEach(node => {  
             node.addEventListener('mousemove', function(event) {  
